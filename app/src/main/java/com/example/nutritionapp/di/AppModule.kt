@@ -2,6 +2,8 @@ package com.example.nutritionapp.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.nutritionapp.data.repository.NutritionRepository
+import com.example.nutritionapp.data.repository.NutritionRepositoryImpl
 import com.example.nutritionapp.util.SharedPrefConstants
 import com.google.gson.Gson
 import dagger.Module
@@ -22,6 +24,11 @@ object AppModule {
             SharedPrefConstants.LOCAL_SHARED_PREF,
             Context.MODE_PRIVATE
         )
+    }
+
+    @Provides
+    fun provideNutritionRepository(repositoryImpl: NutritionRepositoryImpl): NutritionRepository {
+        return repositoryImpl
     }
 
     @Provides

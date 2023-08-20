@@ -3,6 +3,8 @@ package com.example.nutritionapp.di
 import android.content.SharedPreferences
 import com.example.nutritionapp.data.repository.AuthRepository
 import com.example.nutritionapp.data.repository.AuthRepositoryImp
+import com.example.nutritionapp.data.repository.NutritionFoodRepository
+import com.example.nutritionapp.data.repository.NutritionFoodRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
@@ -25,5 +27,13 @@ object RepositoryModule {
         gson: Gson
     ): AuthRepository {
         return AuthRepositoryImp(auth, database,appPreferences,gson)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNutritionRepository(
+        database: FirebaseFirestore
+    ): NutritionFoodRepository {
+        return NutritionFoodRepositoryImpl(database)
     }
 }

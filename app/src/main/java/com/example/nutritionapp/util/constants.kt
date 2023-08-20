@@ -1,7 +1,11 @@
 package com.example.nutritionapp.util
 
+import com.example.nutritionapp.data.model.NutritionDataF
+
 object FireStoreTAbles {
     const val User = "user"
+    const val NutritionData = "Nutrition"
+
 }
 
 object SharedPrefConstants {
