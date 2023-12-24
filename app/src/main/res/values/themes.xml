@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.NutritionApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#0E86D4</item>
-        <item name="colorPrimaryVariant">#0E86D4</item>
-        <item name="colorPrimaryDark">#0E86D4</item>
+        <item name="colorPrimary">#0DB7DC</item>
+        <item name="colorPrimaryVariant">#1EF0D7</item>
+        <item name="colorPrimaryDark">#1E9AB5</item>
     </style>
 
     <style name="Theme.NutritionApp" parent="Base.Theme.NutritionApp" />

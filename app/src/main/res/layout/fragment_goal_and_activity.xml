@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.onBoarding.GoalAndActivityFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:contentDescription="@string/back_button"
+            android:src="@drawable/baseline_arrow_back_24" />
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Custom Toolbar"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:id="@+id/text_select_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/select_goal"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_lose_weight"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/strok_view"
+                app:layout_constraintEnd_toStartOf="@+id/view_maintain_weight"
+                app:layout_constraintStart_toStartOf="@+id/text_select_goal"
+                app:layout_constraintTop_toBottomOf="@+id/text_select_goal" />
+
+            <TextView
+                android:id="@+id/tv_lose_weight"
+                android:layout_width="0dp"
+                android:layout_height="19dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:letterSpacing=".05"
+                android:textStyle="normal"
+                android:textColor="@color/black"
+                android:text="@string/lose_weight"
+                app:layout_constraintBottom_toBottomOf="@+id/view_lose_weight"
+                app:layout_constraintEnd_toEndOf="@+id/view_lose_weight"
+                app:layout_constraintStart_toStartOf="@+id/view_lose_weight"
+                app:layout_constraintTop_toTopOf="@+id/view_lose_weight" />
+
+
+            <View
+                android:id="@+id/view_maintain_weight"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/strok_view"
+                app:layout_constraintBottom_toBottomOf="@+id/view_lose_weight"
+                app:layout_constraintEnd_toStartOf="@+id/view_Gain_weight"
+                app:layout_constraintStart_toEndOf="@+id/view_lose_weight"
+                app:layout_constraintTop_toTopOf="@+id/view_lose_weight"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tv_maintain_weight"
+                android:layout_width="0dp"
+                android:layout_height="19dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:textStyle="normal"
+                android:letterSpacing=".05"
+                android:textColor="@color/black"
+                android:text="@string/maintain_weight"
+                app:layout_constraintBottom_toBottomOf="@+id/view_maintain_weight"
+                app:layout_constraintEnd_toEndOf="@+id/view_maintain_weight"
+                app:layout_constraintStart_toStartOf="@+id/view_maintain_weight"
+                app:layout_constraintTop_toTopOf="@+id/view_maintain_weight" />
+
+            <View
+                android:id="@+id/view_Gain_weight"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/strok_view"
+                app:layout_constraintBottom_toBottomOf="@+id/view_maintain_weight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/view_maintain_weight"
+                app:layout_constraintTop_toTopOf="@+id/view_maintain_weight"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/Gain_weight"
+                android:layout_width="0dp"
+                android:layout_height="19dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:textStyle="normal"
+                android:textColor="@color/black"
+                android:letterSpacing=".05"
+                android:text="@string/gain_weight"
+                app:layout_constraintBottom_toBottomOf="@+id/view_Gain_weight"
+                app:layout_constraintEnd_toEndOf="@+id/view_Gain_weight"
+                app:layout_constraintStart_toStartOf="@+id/view_Gain_weight"
+                app:layout_constraintTop_toTopOf="@+id/view_Gain_weight" />
+
+            <TextView
+                android:id="@+id/text_activity_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="46dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/activity_level"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/view_lose_weight"
+                app:layout_constraintTop_toBottomOf="@+id/view_lose_weight" />
+
+            <View
+                android:id="@+id/view_Not_Very_Active"
+                android:layout_width="0dp"
+                android:layout_height="62dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/strok_view"
+                app:layout_constraintEnd_toEndOf="@+id/view_Gain_weight"
+                app:layout_constraintStart_toStartOf="@+id/text_activity_level"
+                app:layout_constraintTop_toBottomOf="@+id/text_activity_level" />
+
+            <TextView
+                android:id="@+id/tv_Not_Very_Active"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:textStyle="normal"
+                android:text="@string/not_very_active"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/view_Not_Very_Active"
+                app:layout_constraintStart_toStartOf="@+id/view_Not_Very_Active"
+                app:layout_constraintTop_toTopOf="@+id/view_Not_Very_Active" />
+
+
+            <TextView
+                android:id="@+id/Not_Very_Active_ex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:text="spend most of the day sitting "
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/view_Not_Very_Active"
+                app:layout_constraintStart_toStartOf="@+id/tv_Not_Very_Active"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Not_Very_Active" />
+
+            <View
+                android:id="@+id/view_Lightly_Active"
+                android:layout_width="0dp"
+                android:layout_height="62dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/strok_view"
+                app:layout_constraintEnd_toEndOf="@+id/view_Not_Very_Active"
+                app:layout_constraintStart_toStartOf="@+id/view_Not_Very_Active"
+                app:layout_constraintTop_toBottomOf="@+id/view_Not_Very_Active" />
+
+            <TextView
+                android:id="@+id/tv_Lightly_Active"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:textStyle="normal"
+                android:text="@string/lightly_active"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/view_Lightly_Active"
+                app:layout_constraintStart_toStartOf="@+id/view_Lightly_Active"
+                app:layout_constraintTop_toTopOf="@+id/view_Lightly_Active" />
+
+
+            <TextView
+                android:id="@+id/Lightly_Active_ex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:text="spend a good part of the day on your feet"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_Lightly_Active"
+                app:layout_constraintStart_toStartOf="@+id/tv_Lightly_Active"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Lightly_Active" />
+
+            <View
+                android:id="@+id/view_Active"
+                android:layout_width="0dp"
+                android:layout_height="62dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/strok_view"
+                app:layout_constraintEnd_toEndOf="@+id/view_Lightly_Active"
+                app:layout_constraintStart_toStartOf="@+id/view_Lightly_Active"
+                app:layout_constraintTop_toBottomOf="@+id/view_Lightly_Active" />
+
+            <TextView
+                android:id="@+id/tv_Active"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:textStyle="normal"
+                android:text="@string/active"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/view_Active"
+                app:layout_constraintStart_toStartOf="@+id/view_Active"
+                app:layout_constraintTop_toTopOf="@+id/view_Active" />
+
+
+            <TextView
+                android:id="@+id/Active_ex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:text="spend a good part of the day doing some physical activity"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_Active"
+                app:layout_constraintStart_toStartOf="@+id/tv_Active"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Active" />
+
+            <View
+                android:id="@+id/view_Very_Active"
+                android:layout_width="0dp"
+                android:layout_height="62dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/strok_view"
+                app:layout_constraintEnd_toEndOf="@+id/view_Active"
+                app:layout_constraintStart_toStartOf="@+id/view_Active"
+                app:layout_constraintTop_toBottomOf="@+id/view_Active" />
+
+            <TextView
+                android:id="@+id/tv_Very_Active"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:textStyle="normal"
+                android:text="@string/very_active"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/view_Very_Active"
+                app:layout_constraintStart_toStartOf="@+id/view_Very_Active"
+                app:layout_constraintTop_toTopOf="@+id/view_Very_Active" />
+
+
+            <TextView
+                android:id="@+id/Very_Active_ex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:text="spend a good part of the day doing heavy physical activity"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_Very_Active"
+                app:layout_constraintStart_toStartOf="@+id/tv_Very_Active"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Very_Active" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_Next"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/custom_btn"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/view_Very_Active"
+                app:layout_constraintStart_toStartOf="@+id/view_Very_Active"
+                app:layout_constraintTop_toBottomOf="@+id/view_Very_Active" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

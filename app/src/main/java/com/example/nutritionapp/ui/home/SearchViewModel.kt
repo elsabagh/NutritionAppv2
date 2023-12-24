@@ -19,8 +19,8 @@ class SearchViewModel @Inject constructor(
     private val nutritionRepository: NutritionRepository
 ) : ViewModel() {
 
-    private val appId = "d722b2cb"
-    private val appKey = "6ce10335676e71e24798fde2e86d0b90"
+    private val appId = "a2d6a9e9"
+    private val appKey = "41d46f9ea3b1ca4cc38209c28205eb0b"
 
     private val _nutrientResponse = MutableLiveData<UiState<NutrientResponse>>()
     val nutrientResponse: LiveData<UiState<NutrientResponse>>

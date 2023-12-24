@@ -1,5 +1,6 @@
 package com.example.nutritionapp.data.repository
 
+import com.example.nutritionapp.data.model.PersonalInformation
 import com.example.nutritionapp.data.model.User
 import com.example.nutritionapp.util.UiState
 
@@ -32,4 +33,9 @@ interface AuthRepository {
     fun storeSession(id: String, result: (User?) -> Unit)
 
     fun getSession(result: (User?) -> Unit)
+
+    fun dataPersonalInformation(
+        personalInformation: PersonalInformation,
+        result: (UiState<String>) -> Unit
+    )
 }

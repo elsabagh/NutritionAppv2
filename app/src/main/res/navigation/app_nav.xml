@@ -11,20 +11,46 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-        <action
             android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
-            app:destination="@id/forgotPasswordFragment" />
+            app:destination="@id/forgotPasswordFragment"
+            app:popUpTo="@id/loginFragment" />
         <action
             android:id="@+id/action_loginFragment_to_home_nav"
             app:destination="@id/home_nav" />
+        <action
+            android:id="@+id/action_loginFragment_to_goalAndActivityFragment"
+            app:destination="@id/goalAndActivityFragment"
+            app:popUpTo="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.nutritionapp.ui.auth.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register">
+        <argument
+            android:name="selectedGoal"
+            app:argType="string" />
+        <argument
+            android:name="selectedActivityLevel"
+            app:argType="string" />
+        <argument
+            android:name="selectedGander"
+            app:argType="string" />
+        <argument
+            android:name="selectedWeaklyGoal"
+            app:argType="string" />
+        <argument
+            android:name="age"
+            app:argType="string" />
+        <argument
+            android:name="height"
+            app:argType="string" />
+        <argument
+            android:name="weight"
+            app:argType="string" />
+        <argument
+            android:name="goalWight"
+            app:argType="string" />
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -39,7 +65,34 @@
         tools:layout="@layout/fragment_forgot_password">
         <action
             android:id="@+id/action_forgotPasswordFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/forgotPasswordFragment" />
     </fragment>
     <include app:graph="@navigation/home_nav" />
+    <fragment
+        android:id="@+id/informationBodyFragment"
+        android:name="com.example.nutritionapp.ui.onBoarding.InformationBodyFragment"
+        android:label="fragment_information_body"
+        tools:layout="@layout/fragment_information_body" >
+        <argument
+            android:name="selectedGoal"
+            app:argType="string" />
+        <argument
+            android:name="selectedActivityLevel"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_informationBodyFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/informationBodyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goalAndActivityFragment"
+        android:name="com.example.nutritionapp.ui.onBoarding.GoalAndActivityFragment"
+        android:label="fragment_goal_and_activity"
+        tools:layout="@layout/fragment_goal_and_activity" >
+        <action
+            android:id="@+id/action_goalAndActivityFragment_to_informationBodyFragment"
+            app:destination="@id/informationBodyFragment"
+            app:popUpTo="@id/goalAndActivityFragment" />
+    </fragment>
 </navigation>

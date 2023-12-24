@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.nutritionapp.R
+import com.example.nutritionapp.data.model.PersonalInformation
 import com.example.nutritionapp.data.model.User
 import com.example.nutritionapp.databinding.FragmentRegisterBinding
 import com.example.nutritionapp.util.UiState
@@ -22,6 +24,7 @@ class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel: AuthViewModel by viewModels()
+    val args: RegisterFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +37,13 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observer()
+
+        binding.toolbarTitle.text = "Create Account"
+
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.btnReg.setOnClickListener {
             if (validation()) {
                 viewModel.register(
@@ -43,6 +53,8 @@ class RegisterFragment : Fragment() {
                 )
             }
         }
+
+
     }
 
     private fun observer() {
@@ -60,6 +72,23 @@ class RegisterFragment : Fragment() {
                 is UiState.Success -> {
                     binding.registerProgress.hide()
                     toast(state.data)
+
+                    viewModel.dataInfo(
+                        PersonalInformation(
+                            id = "",
+                            goal = args.selectedGoal,
+                            levelActivity = args.selectedActivityLevel,
+                            gander = args.selectedGander,
+                            weaklyGoal =  args.selectedWeaklyGoal,
+                            age = args.age,
+                            height = args.height,
+                            weight =args.weight,
+                            goalWight =args.goalWight
+                        ).apply {
+                            viewModel.getSession { this.user_id = it?.id ?: "" }
+                        }
+                    )
+
                     findNavController().navigate(R.id.action_registerFragment_to_home_nav)
                 }
             }
@@ -105,6 +134,7 @@ class RegisterFragment : Fragment() {
         }
         return isValid
     }
+
     companion object {
         const val TAG: String = "RegisterFragment"
     }

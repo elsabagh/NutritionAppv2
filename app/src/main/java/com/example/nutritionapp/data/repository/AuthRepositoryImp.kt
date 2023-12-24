@@ -1,6 +1,7 @@
 package com.example.nutritionapp.data.repository
 
 import android.content.SharedPreferences
+import com.example.nutritionapp.data.model.PersonalInformation
 import com.example.nutritionapp.data.model.User
 import com.example.nutritionapp.util.FireStoreTAbles
 import com.example.nutritionapp.util.SharedPrefConstants
@@ -169,5 +170,24 @@ class AuthRepositoryImp(
             val user = gson.fromJson(userS, User::class.java)
             result.invoke(user)
         }
+    }
+
+    override fun dataPersonalInformation(
+        userInfo: PersonalInformation,
+        result: (UiState<String>) -> Unit
+    ) {
+        val document = database.collection("UserInfo").document()
+        userInfo.id = document.id
+        document.set(userInfo)
+            .addOnSuccessListener {
+                result.invoke(
+                    UiState.Success("User has been update successfully")
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(it.localizedMessage)
+                )
+            }
     }
 }

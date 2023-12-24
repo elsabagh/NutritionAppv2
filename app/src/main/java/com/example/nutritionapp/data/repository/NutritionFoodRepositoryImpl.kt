@@ -15,7 +15,7 @@ class NutritionFoodRepositoryImpl(
         document.set(nutrition)
             .addOnSuccessListener {
                 result.invoke(
-                    UiState.Success("Note has been created successfully")
+                    UiState.Success("meal has been created successfully")
                 )
             }
             .addOnFailureListener {

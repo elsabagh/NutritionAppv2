@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nutrition App</string>
+    <string name="app_name">Nutri Finder</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="note_item_desc_placholder">In this chapter, you’re going to learn about the different types of subjects in RxJava, see how to work with each one and why you might choose one over another based on some common use cases.</string>
     <string name="note_detail_desc_placeholder">You’ve gotten a handle on what an Observable is, how to create one, how to subscribe to it, and how to dispose of things when you’re done. Observables are a fundamental part of RxJava, but a common need when developing apps is to manually add new values onto an Observable at runtime that will then be emitted to subscribers. What you want is something that can act as both an Observable and as an observer. And that something is called a subject.</string>
@@ -24,4 +24,20 @@
     <string name="done">Done</string>
     <string name="error_task_detail">Task detail is missing</string>
     <string name="passwords_do_not_match">passwords_do_not_match</string>
+    <string name="select_goal">Select Goal</string>
+    <string name="lose_weight">lose weight</string>
+    <string name="maintain_weight">Maintain weight</string>
+    <string name="gain_weight">Gain weight</string>
+    <string name="not_very_active">Not Very Active</string>
+    <string name="lightly_active">Lightly Active</string>
+    <string name="active">Active</string>
+    <string name="very_active">Very Active</string>
+    <string name="select_gander">Select Gander</string>
+    <string name="male">Male</string>
+    <string name="enter_information">Enter information</string>
+    <string name="weakly_goal">Weakly goal?</string>
+    <string name="goal_weight">Goal weight?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="activity_level">Activity Level</string>
+    <string name="back_button">back button</string>
 </resources>

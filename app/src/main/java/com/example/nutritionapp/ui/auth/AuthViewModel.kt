@@ -3,6 +3,7 @@ package com.example.nutritionapp.ui.auth
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.nutritionapp.data.model.PersonalInformation
 import com.example.nutritionapp.data.model.User
 import com.example.nutritionapp.util.UiState
 import com.example.nutritionapp.data.repository.AuthRepository
@@ -25,6 +26,10 @@ class AuthViewModel @Inject constructor(
     private val _forgotPassword = MutableLiveData<UiState<String>>()
     val forgotPassword: LiveData<UiState<String>>
         get() = _forgotPassword
+
+    private val _dataInfo = MutableLiveData<UiState<String>>()
+    val dataInfo: LiveData<UiState<String>>
+        get() = _dataInfo
 
     fun register(
         email: String,
@@ -73,5 +78,11 @@ class AuthViewModel @Inject constructor(
         repository.getSession(result)
     }
 
+    fun dataInfo(userInfo: PersonalInformation) {
+        _dataInfo.value = UiState.Loading
+        repository.dataPersonalInformation(userInfo) {
+            _dataInfo.value = it
+        }
+    }
 
 }
