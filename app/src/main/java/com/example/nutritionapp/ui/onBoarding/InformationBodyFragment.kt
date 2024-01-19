@@ -23,7 +23,7 @@ class InformationBodyFragment : Fragment() {
     private lateinit var binding: FragmentInformationBodyBinding
     private var selectedGander: String? = null // Variable to store the selected goal
     private var selectedWeaklyGoal: String? = null // Variable to store the selected activity level
-    val args: InformationBodyFragmentArgs by navArgs()
+    private val args: InformationBodyFragmentArgs by navArgs()
 
 
     override fun onCreateView(
@@ -73,7 +73,6 @@ class InformationBodyFragment : Fragment() {
 
         binding.btnNext.setOnClickListener {
             if (selectedGander != null && selectedWeaklyGoal != null) {
-
                 val action =
                     InformationBodyFragmentDirections.actionInformationBodyFragmentToRegisterFragment(
                         selectedGoal = selectedGoal,
@@ -86,7 +85,6 @@ class InformationBodyFragment : Fragment() {
                         goalWight = binding.etGoalWeight.text.toString()
                     )
                 findNavController().navigate(action)
-
             } else {
                 // Show an error message or handle the case where not both values are selected
             }

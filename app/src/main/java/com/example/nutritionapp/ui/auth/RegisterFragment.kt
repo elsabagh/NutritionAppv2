@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.nutritionapp.R
+import com.example.nutritionapp.data.model.GoalData
 import com.example.nutritionapp.data.model.PersonalInformation
 import com.example.nutritionapp.data.model.User
 import com.example.nutritionapp.databinding.FragmentRegisterBinding
@@ -24,7 +25,11 @@ class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel: AuthViewModel by viewModels()
-    val args: RegisterFragmentArgs by navArgs()
+    private val args: RegisterFragmentArgs by navArgs()
+    private var calories = ""
+    private var carbs = ""
+    private var protein = ""
+    private var fat = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +56,16 @@ class RegisterFragment : Fragment() {
                     password = binding.etPass.text.toString(),
                     user = getUserObj()
                 )
+            }
+
+            when (args.selectedGander) {
+                "Male" -> {
+                    calculationForMale()
+                }
+
+                "Female" -> {
+                    calculationForFemale()
+                }
             }
         }
 
@@ -79,11 +94,23 @@ class RegisterFragment : Fragment() {
                             goal = args.selectedGoal,
                             levelActivity = args.selectedActivityLevel,
                             gander = args.selectedGander,
-                            weaklyGoal =  args.selectedWeaklyGoal,
+                            weaklyGoal = args.selectedWeaklyGoal,
                             age = args.age,
                             height = args.height,
-                            weight =args.weight,
-                            goalWight =args.goalWight
+                            weight = args.weight,
+                            goalWight = args.goalWight
+                        ).apply {
+                            viewModel.getSession { this.user_id = it?.id ?: "" }
+                        }
+                    )
+
+                    viewModel.dataDayGoal(
+                        GoalData(
+                            id = "",
+                            tCalories = calories,
+                            tCarbs = carbs,
+                            tProtein = protein,
+                            tFat = fat
                         ).apply {
                             viewModel.getSession { this.user_id = it?.id ?: "" }
                         }
@@ -102,10 +129,238 @@ class RegisterFragment : Fragment() {
         )
     }
 
+    fun calculationForMale() {
+        val w = args.weight.toDouble()
+        val h = args.height.toDouble()
+        val a = args.age.toDouble()
+        val BMR = 88.362 + (13.397 * w) + (4.799 * h) - (5.877 * a)
+        var ac = 0.0
+        var ca = 0.0
+        var protien = 0.0
+        var carb = 0.0
+        var fats = 0.0
+        when (args.selectedActivityLevel) {
+            "Not Very Active" -> {
+                val c = BMR * 1.2
+                ac = c
+            }
+
+            "Lightly Active" -> {
+                val c = BMR * 1.3
+                ac = c
+            }
+
+            "Active" -> {
+                val c = BMR * 1.55
+                ac = c
+            }
+
+            "Very Active" -> {
+                val c = BMR * 1.7
+                ac = c
+            }
+        }
+
+        when (args.selectedWeaklyGoal) {
+            "Lose 0.25 kg per week" -> {
+                val Calories = ac - 200
+                ca = Calories
+                protien = (w * 2.5)
+                fats = (ca * 0.2) / 9
+                val k = (protien * 4) + (fats * 9)
+                carb = (ca - (k)) / 4
+            }
+
+            "Lose 0.5 kg per week" -> {
+                val Calories = ac - 300
+                ca = Calories
+                protien = (w * 2.5)
+                fats = (ca * 0.2) / 9
+                val k = (protien * 4) + (fats * 9)
+                carb = (ca - (k)) / 4
+            }
+
+            "Lose 0.75 kg per week" -> {
+                val Calories = ac - 400
+                ca = Calories
+                protien = (w * 2.5)
+                fats = (ca * 0.2) / 9
+                val k = (protien * 4) + (fats * 9)
+                carb = (ca - (k)) / 4
+
+            }
+
+            "Lose 1 kg per week" -> {
+                val Calories = ac - 500
+                ca = Calories
+                protien = (w * 2.5)
+                fats = (ca * 0.2) / 9
+                val k = (protien * 4) + (fats * 9)
+                carb = (ca - (k)) / 4
+
+            }
+        }
+
+//        if (args.selectedWeaklyGoal == "Maintain weight") {
+//            val Calories = ac
+//            ca = Calories
+//            protien = (w * 2)
+//            fats = (ca * 0.25) / 9
+//            val k = (protien * 4) + (fats * 9)
+//            carb = (ca - (k)) / 4
+//        }
+
+//        if (binding.checkgoal.text == "Gain 0.25 kg/week") {
+//            val Calories = ac + 200
+//            ca = Calories
+//            protien = (w * 2)
+//            fats = (ca * 0.25) / 9
+//            val k = (protien * 4) + (fats * 9)
+//            carb = (ca - (k)) / 4
+//        }
+//
+//        if (binding.checkgoal.text == "Gain 0.5 kg/week") {
+//            val Calories = ac + 300
+//            ca = Calories
+//            protien = (w * 2)
+//            fats = (ca * 0.25) / 9
+//            val k = (protien * 4) + (fats * 9)
+//            carb = (ca - (k)) / 4
+//        }
+//
+//
+//        if (binding.checkgoal.text == "Gain 1 kg/week") {
+//            val Calories = ac + 500
+//            ca = Calories
+//            protien = (w * 2)
+//            fats = (ca * 0.3) / 9
+//            val k = (protien * 4) + (fats * 9)
+//            carb = (ca - (k)) / 4
+//        }
+        calories = ca.toString()
+        protein = protien.toString()
+        carbs = carb.toString()
+        fat = fats.toString()
+    }
+
+
+    fun calculationForFemale() {
+        val w = args.weight.toDouble()
+        val h = args.height.toDouble()
+        val a = args.age.toDouble()
+        val BMR = 447.593 + (9.247 * w) + (3.098 * h) - (4.330 * a)
+        var ac = 0.0
+        var ca = 0.0
+        var protien = 0.0
+        var carb = 0.0
+        var fats = 0.0
+        when (args.selectedActivityLevel) {
+            "Not Very Active" -> {
+                val c = BMR * 1.2
+                ac = c
+            }
+
+            "Lightly Active" -> {
+                val c = BMR * 1.3
+                ac = c
+            }
+
+            "Active" -> {
+                val c = BMR * 1.55
+                ac = c
+            }
+
+            "Very Active" -> {
+                val c = BMR * 1.7
+                ac = c
+            }
+        }
+
+        when (args.selectedWeaklyGoal) {
+            "Lose 0.25 kg per week" -> {
+                val Calories = ac - 200
+                ca = Calories
+                protien = (w * 2)
+                fats = (ca * 0.25) / 9
+                val k = (protien * 4) + (fats * 9)
+                carb = (ca - (k)) / 4
+            }
+
+            "Lose 0.5 kg per week" -> {
+                val Calories = ac - 300
+                ca = Calories
+                protien = (w * 2)
+                fats = (ca * 0.25) / 9
+                val k = (protien * 4) + (fats * 9)
+                carb = (ca - (k)) / 4
+            }
+
+            "Lose 0.75 kg per week" -> {
+                val Calories = ac - 500
+                ca = Calories
+                protien = (w * 2)
+                fats = (ca * 0.25) / 9
+                val k = (protien * 4) + (fats * 9)
+                carb = (ca - (k)) / 4
+
+            }
+
+            "Lose 1 kg per week" -> {
+                val Calories = ac - 500
+                ca = Calories
+                protien = (w * 2)
+                fats = (ca * 0.25) / 9
+                val k = (protien * 4) + (fats * 9)
+                carb = (ca - (k)) / 4
+
+            }
+        }
+//
+//        if (args.selectedWeaklyGoal == "Lose 0.25 kg per week") {
+//            val Calories = ac
+//            ca = Calories
+//            protien = (w * 2)
+//            fats = (ca * 0.3) / 9
+//            val k = (protien * 4) + (fats * 9)
+//            carb = (ca - (k)) / 4
+//        }
+//
+//        if (binding.checkgoal.text == "Gain 0.25 kg/week") {
+//            val Calories = ac + 200
+//            ca = Calories
+//            protien = (w * 1.5)
+//            fats = (ca * 0.3) / 9
+//            val k = (protien * 4) + (fats * 9)
+//            carb = (ca - (k)) / 4
+//        }
+//
+//        if (binding.checkgoal.text == "Gain 0.5 kg/week") {
+//            val Calories = ac + 300
+//            ca = Calories
+//            protien = (w * 1.5)
+//            fats = (ca * 0.3) / 9
+//            val k = (protien * 4) + (fats * 9)
+//            carb = (ca - (k)) / 4
+//        }
+//
+//
+//        if (binding.checkgoal.text == "Gain 1 kg/week") {
+//            val Calories = ac + 500
+//            ca = Calories
+//            protien = (w * 1.5)
+//            fats = (ca * 0.35) / 9
+//            val k = (protien * 4) + (fats * 9)
+//            carb = (ca - (k)) / 4
+//        }
+        calories = ca.toString()
+        protein = protien.toString()
+        carbs = carb.toString()
+        fat = fats.toString()
+    }
+
+
     private fun validation(): Boolean {
         var isValid = true
-
-
 
         if (binding.etEmail.text.isNullOrEmpty()) {
             isValid = false

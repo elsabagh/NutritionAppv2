@@ -1,6 +1,7 @@
 package com.example.nutritionapp.data.repository
 
 import android.content.SharedPreferences
+import com.example.nutritionapp.data.model.GoalData
 import com.example.nutritionapp.data.model.PersonalInformation
 import com.example.nutritionapp.data.model.User
 import com.example.nutritionapp.util.FireStoreTAbles
@@ -190,4 +191,46 @@ class AuthRepositoryImp(
                 )
             }
     }
+
+    override fun dayGoal(
+        goalData: GoalData,
+        result: (UiState<String>) -> Unit
+    ) {
+        val document = database.collection("Goal").document()
+        goalData.id = document.id
+        document.set(goalData)
+            .addOnSuccessListener {
+                result.invoke(
+                    UiState.Success("goal has been update successfully")
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(it.localizedMessage)
+                )
+            }
+    }
+
+    // Inside AuthRepositoryImp class
+    override fun getGoalData(userId: String, result: (UiState<GoalData?>) -> Unit) {
+        database.collection("Goal").whereEqualTo("user_id", userId)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val documents = task.result?.documents
+                    if (!documents.isNullOrEmpty()) {
+                        val goalData = documents[0].toObject(GoalData::class.java)
+                        result.invoke(UiState.Success(goalData))
+                    } else {
+                        result.invoke(UiState.Success(null)) // No goal data found
+                    }
+                } else {
+                    result.invoke(UiState.Failure(task.exception?.localizedMessage ?: "Failed to fetch goal data"))
+                }
+            }
+    }
+
+
+
+
 }

@@ -1,19 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.ResultFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="320dp"
-        android:text="result fragment"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="">
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Daily Diet"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/tv_daily_consumption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="daily consumption"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_daily_consumption"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_daily_consumption">
+
+        <ImageView
+            android:id="@+id/img_calendar"
+            android:layout_width="26dp"
+            android:layout_height="28dp"
+            android:clickable="true"
+            android:src="@drawable/baseline_calendar_month_24"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_prev_day"
+            app:layout_constraintEnd_toStartOf="@+id/tv_current_date"
+            app:layout_constraintStart_toEndOf="@+id/btn_prev_day"
+            app:layout_constraintTop_toTopOf="@+id/btn_prev_day" />
+
+
+        <ImageButton
+            android:id="@+id/btn_prev_day"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="previous_day"
+            android:src="@drawable/left_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/img_calendar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_next_day"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="next_day"
+            android:src="@drawable/right_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_current_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_current_date"
+            app:layout_constraintTop_toTopOf="@+id/tv_current_date" />
+
+        <TextView
+            android:id="@+id/tv_current_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="2 July"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_calendar"
+            app:layout_constraintEnd_toStartOf="@+id/btn_next_day"
+            app:layout_constraintStart_toEndOf="@+id/img_calendar"
+            app:layout_constraintTop_toTopOf="@+id/img_calendar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/Card_Calories"
+        android:layout_width="0dp"
+        android:layout_height="195dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintStart_toStartOf="@+id/tv_daily_consumption"
+        app:layout_constraintTop_toBottomOf="@+id/tv_daily_consumption">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/cal_circularProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:indeterminate="false"
+                android:indeterminateOnly="false"
+                android:max="100"
+                android:progress="30"
+                android:rotation="180"
+                app:cpb_background_progressbar_color="#D6D6D6"
+                app:cpb_background_progressbar_width="12dp"
+                app:cpb_progress="40"
+                app:cpb_progress_direction="to_right"
+                app:cpb_progress_max="100"
+                app:cpb_progressbar_color="#19E069"
+                app:cpb_progressbar_width="12dp"
+                app:cpb_round_border="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tv_percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="30%"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/cal_circularProgressBar"
+                app:layout_constraintEnd_toEndOf="@+id/cal_circularProgressBar"
+                app:layout_constraintStart_toStartOf="@+id/cal_circularProgressBar"
+                app:layout_constraintTop_toTopOf="@+id/cal_circularProgressBar" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tcaloris"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tcarb"
+        app:layout_constraintStart_toStartOf="@+id/Card_Calories" />
+
+    <TextView
+        android:id="@+id/tcarb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/tcaloris"
+        app:layout_constraintTop_toBottomOf="@+id/Card_Calories" />
+
+    <TextView
+        android:id="@+id/tprotien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tcarb"
+        app:layout_constraintStart_toEndOf="@+id/tcarb" />
+
+    <TextView
+        android:id="@+id/tfat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tprotien"
+        app:layout_constraintStart_toEndOf="@+id/tprotien" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.nutritionapp.ui.auth
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.nutritionapp.data.model.GoalData
 import com.example.nutritionapp.data.model.PersonalInformation
 import com.example.nutritionapp.data.model.User
 import com.example.nutritionapp.util.UiState
@@ -31,6 +32,13 @@ class AuthViewModel @Inject constructor(
     val dataInfo: LiveData<UiState<String>>
         get() = _dataInfo
 
+    private val _dataDayGoal = MutableLiveData<UiState<String>>()
+    val dataDayGoal: LiveData<UiState<String>>
+        get() = _dataDayGoal
+
+    private val _goalData = MutableLiveData<UiState<GoalData?>>()
+    val goalData: LiveData<UiState<GoalData?>>
+        get() = _goalData
     fun register(
         email: String,
         password: String,
@@ -85,4 +93,17 @@ class AuthViewModel @Inject constructor(
         }
     }
 
+    fun dataDayGoal(dayGoal: GoalData) {
+        _dataDayGoal.value = UiState.Loading
+        repository.dayGoal(dayGoal) {
+            _dataDayGoal.value = it
+        }
+    }
+
+    fun getGoalData(userId: String) {
+        _goalData.value = UiState.Loading
+        repository.getGoalData(userId) {
+            _goalData.value = it
+        }
+    }
 }

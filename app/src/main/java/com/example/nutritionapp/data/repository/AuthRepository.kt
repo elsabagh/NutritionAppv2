@@ -1,5 +1,6 @@
 package com.example.nutritionapp.data.repository
 
+import com.example.nutritionapp.data.model.GoalData
 import com.example.nutritionapp.data.model.PersonalInformation
 import com.example.nutritionapp.data.model.User
 import com.example.nutritionapp.util.UiState
@@ -38,4 +39,12 @@ interface AuthRepository {
         personalInformation: PersonalInformation,
         result: (UiState<String>) -> Unit
     )
+
+    fun dayGoal(
+        goalData: GoalData,
+        result: (UiState<String>) -> Unit
+    )
+
+    fun getGoalData(userId: String, result: (UiState<GoalData?>) -> Unit)
+
 }
