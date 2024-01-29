@@ -38,7 +38,7 @@ fun List<Pair<View, TextView>>.applyClickBehavior(selectedGoal: (String?) -> Uni
     fun resetViews() {
         for ((view, textView) in this) {
             view.background = ContextCompat.getDrawable(view.context, R.drawable.strok_view)
-            textView.setTextColor(ContextCompat.getColor(view.context, R.color.black))
+            textView.setTextColor(ContextCompat.getColor(view.context, R.color.gray))
             textView.setTypeface(null, Typeface.NORMAL)
         }
     }

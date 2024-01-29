@@ -33,10 +33,32 @@ class GoalAndActivityFragment : Fragment() {
 
         binding.toolbarTitle.text = "Goal & Activity"
 
+        backButton()
+        changeStyle()
+        nextButton()
+    }
+    private fun nextButton(){
+        binding.btnNext.setOnClickListener {
+            if (selectedGoal != null && selectedActivityLevel != null) {
+                // Both goal and activity level are selected, proceed with navigation and data submission
+                val action =
+                    GoalAndActivityFragmentDirections.actionGoalAndActivityFragmentToInformationBodyFragment(
+                        selectedGoal = selectedGoal!!,
+                        selectedActivityLevel = selectedActivityLevel!!
+                    )
+                findNavController().navigate(action)
+            } else {
+                // Show an error message or handle the case where not both values are selected
+            }
+        }
+    }
+
+    private fun backButton(){
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
-
+    }
+    private fun changeStyle(){
         val selectGoal: List<Pair<View, TextView>> = listOf(
             Pair(binding.viewLoseWeight, binding.tvLoseWeight),
             Pair(binding.viewMaintainWeight, binding.tvMaintainWeight),
@@ -62,20 +84,6 @@ class GoalAndActivityFragment : Fragment() {
         selectActivityLevel.applyClickBehavior { selectedActivityLevel ->
             if (selectedActivityLevel != null) {
                 this.selectedActivityLevel = selectedActivityLevel
-            }
-        }
-
-        binding.btnNext.setOnClickListener {
-            if (selectedGoal != null && selectedActivityLevel != null) {
-                // Both goal and activity level are selected, proceed with navigation and data submission
-                val action =
-                    GoalAndActivityFragmentDirections.actionGoalAndActivityFragmentToInformationBodyFragment(
-                        selectedGoal = selectedGoal!!,
-                        selectedActivityLevel = selectedActivityLevel!!
-                    )
-                findNavController().navigate(action)
-            } else {
-                // Show an error message or handle the case where not both values are selected
             }
         }
     }

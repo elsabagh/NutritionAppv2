@@ -47,30 +47,42 @@ class ResultFragment : Fragment() {
                     val goalData = uiState.data
                     if (goalData != null) {
                         // Update your UI with the retrieved goal data
-                        binding.tcaloris.text = goalData.tCalories ?: "N/A"
-                        binding.tcarb.text = goalData.tCarbs ?: "N/A"
-                        binding.tprotien.text = goalData.tProtein ?: "N/A"
-                        binding.tfat.text = goalData.tFat ?: "N/A"
+                        binding.tvTargetCal.text = goalData.tCalories ?: "N/A"
+                        binding.tvCarbsNum.text = goalData.tCarbs ?: "N/A"
+                        binding.tvProteinNum.text = goalData.tProtein ?: "N/A"
+                        binding.tvFatsNum.text = goalData.tFat ?: "N/A"
+                        binding.tvKcal.text = goalData.tFat ?: "N/A"
+
+
+                        updateCircularProgressBar(
+                            goalData.tCalories?.toFloat() ?: 0f,
+                            goalData.tFat?.toFloat() ?: 0f
+                        )
+
                     } else {
                         // No goal data found for the user
                         // Handle this case, e.g., display a message or set default values
-                        binding.tcaloris.text = "N/A"
-                        binding.tcarb.text = "N/A"
-                        binding.tprotien.text = "N/A"
-                        binding.tfat.text = "N/A"
+                        binding.tvTargetCal.text = "N/A"
+                        binding.tvCarbsNum.text = "N/A"
+                        binding.tvProteinNum.text = "N/A"
+                        binding.tvFatsNum.text = "N/A"
+                        binding.tvKcal.text = "N/A"
+                        updateCircularProgressBar(0f, 0f)
                     }
                 }
+
                 is UiState.Loading -> {
                     // Show loading indicator
                     // You can add loading logic if needed
                 }
+
                 is UiState.Failure -> {
                     // Handle the failure, show an error message, etc.
                     // You can display an error message or set default values
-                    binding.tcaloris.text = "Error"
-                    binding.tcarb.text = "Error"
-                    binding.tprotien.text = "Error"
-                    binding.tfat.text = "Error"
+                    binding.tvTargetCal.text = "Error"
+                    binding.tvCarbsNum.text = "Error"
+                    binding.tvProteinNum.text = "Error"
+                    binding.tvFatsNum.text = "Error"
                 }
             }
         }
@@ -85,6 +97,19 @@ class ResultFragment : Fragment() {
                 // This could mean the user needs to log in or authenticate first
             }
         }
+    }
+
+    private fun updateCircularProgressBar(targetCalories: Float, consumedCalories: Float) {
+        val progressPercentage = if (targetCalories > 0) {
+            // Calculate the percentage based on consumedCalories and targetCalories
+            (consumedCalories / targetCalories) * 100
+        } else {
+            0f
+        }
+
+        // Set the progress to CircularProgressBar
+        binding.calCircularProgressBar.progress = progressPercentage
+        binding.tvPercentage.text = String.format("%.0f%%", progressPercentage)
     }
 
     companion object {

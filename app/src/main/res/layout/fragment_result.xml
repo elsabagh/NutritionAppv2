@@ -157,48 +157,337 @@
                 app:layout_constraintStart_toStartOf="@+id/cal_circularProgressBar"
                 app:layout_constraintTop_toTopOf="@+id/cal_circularProgressBar" />
 
+            <ImageView
+                android:id="@+id/ico_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/target"
+                app:layout_constraintEnd_toStartOf="@+id/cal_circularProgressBar"
+                app:layout_constraintHorizontal_bias="0.473"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Calories"
+                android:textColor="#19E069"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_target_cal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:maxLength="6"
+                android:text="1860cal"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/ico_target"
+                app:layout_constraintStart_toStartOf="@+id/ico_target"
+                app:layout_constraintTop_toBottomOf="@+id/ico_target" />
+
+            <ImageView
+                android:id="@+id/ico_kcal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/kcal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cal_circularProgressBar"
+                app:layout_constraintTop_toTopOf="@+id/ico_target" />
+
+            <TextView
+                android:id="@+id/tv_kcal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="71dp"
+                android:maxLength="6"
+                android:text="390cal"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/ico_kcal"
+                app:layout_constraintStart_toStartOf="@+id/ico_kcal"
+                app:layout_constraintTop_toBottomOf="@+id/ico_kcal" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/tcaloris"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tcarb"
-        app:layout_constraintStart_toStartOf="@+id/Card_Calories" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/Card_Protein"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/Card_Fats"
+        app:layout_constraintStart_toStartOf="@+id/Card_Calories"
+        app:layout_constraintTop_toBottomOf="@+id/Card_Calories">
 
-    <TextView
-        android:id="@+id/tcarb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/tcaloris"
-        app:layout_constraintTop_toBottomOf="@+id/Card_Calories" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tprotien"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tcarb"
-        app:layout_constraintStart_toEndOf="@+id/tcarb" />
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/Protein_circularProgressBar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:indeterminate="false"
+                android:indeterminateOnly="false"
+                android:max="100"
+                android:progress="30"
+                android:rotation="180"
+                app:cpb_background_progressbar_color="#D6D6D6"
+                app:cpb_background_progressbar_width="4dp"
+                app:cpb_progress="40"
+                app:cpb_progress_direction="to_right"
+                app:cpb_progress_max="100"
+                app:cpb_progressbar_color="#FF902B"
+                app:cpb_progressbar_width="4dp"
+                app:cpb_round_border="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tfat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tprotien"
-        app:layout_constraintStart_toEndOf="@+id/tprotien" />
+            <TextView
+                android:id="@+id/tv_percentage_Protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="30%"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/Protein_circularProgressBar"
+                app:layout_constraintEnd_toEndOf="@+id/Protein_circularProgressBar"
+                app:layout_constraintStart_toStartOf="@+id/Protein_circularProgressBar"
+                app:layout_constraintTop_toTopOf="@+id/Protein_circularProgressBar" />
 
+            <TextView
+                android:id="@+id/tv_Protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Protein"
+                android:textColor="#FF902B"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/Protein_circularProgressBar"
+                app:layout_constraintTop_toTopOf="@+id/Protein_circularProgressBar" />
+
+            <TextView
+                android:id="@+id/tv_Protein_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:maxLength="6"
+                android:text="345g"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_Protein"
+                app:layout_constraintStart_toStartOf="@+id/tv_Protein"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Protein" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/Card_Fats"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Card_Protein"
+        app:layout_constraintEnd_toStartOf="@+id/Card_Carbs"
+        app:layout_constraintStart_toEndOf="@+id/Card_Protein"
+        app:layout_constraintTop_toTopOf="@+id/Card_Protein">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/Fats_circularProgressBar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:indeterminate="false"
+                android:indeterminateOnly="false"
+                android:max="100"
+                android:progress="30"
+                android:rotation="180"
+                app:cpb_background_progressbar_color="#D6D6D6"
+                app:cpb_background_progressbar_width="4dp"
+                app:cpb_progress="40"
+                app:cpb_progress_direction="to_right"
+                app:cpb_progress_max="100"
+                app:cpb_progressbar_color="#6D5BDD"
+                app:cpb_progressbar_width="4dp"
+                app:cpb_round_border="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_percentage_Fats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="30%"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/Fats_circularProgressBar"
+                app:layout_constraintEnd_toEndOf="@+id/Fats_circularProgressBar"
+                app:layout_constraintStart_toStartOf="@+id/Fats_circularProgressBar"
+                app:layout_constraintTop_toTopOf="@+id/Fats_circularProgressBar" />
+
+            <TextView
+                android:id="@+id/tv_Fats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Fats"
+                android:textColor="#6D5BDD"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/Fats_circularProgressBar"
+                app:layout_constraintTop_toTopOf="@+id/Fats_circularProgressBar" />
+
+            <TextView
+                android:id="@+id/tv_Fats_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:maxLength="6"
+                android:text="345g"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_Fats"
+                app:layout_constraintStart_toStartOf="@+id/tv_Fats"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Fats" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/Card_Carbs"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Card_Fats"
+        app:layout_constraintEnd_toEndOf="@+id/Card_Calories"
+        app:layout_constraintStart_toEndOf="@+id/Card_Fats"
+        app:layout_constraintTop_toTopOf="@+id/Card_Fats">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/Carbs_circularProgressBar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:indeterminate="false"
+                android:indeterminateOnly="false"
+                android:max="100"
+                android:progress="30"
+                android:rotation="180"
+                app:cpb_background_progressbar_color="#D6D6D6"
+                app:cpb_background_progressbar_width="4dp"
+                app:cpb_progress="40"
+                app:cpb_progress_direction="to_right"
+                app:cpb_progress_max="100"
+                app:cpb_progressbar_color="#41B9E0"
+                app:cpb_progressbar_width="4dp"
+                app:cpb_round_border="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_percentage_Carbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="30%"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/Carbs_circularProgressBar"
+                app:layout_constraintEnd_toEndOf="@+id/Carbs_circularProgressBar"
+                app:layout_constraintStart_toStartOf="@+id/Carbs_circularProgressBar"
+                app:layout_constraintTop_toTopOf="@+id/Carbs_circularProgressBar" />
+
+            <TextView
+                android:id="@+id/tv_Carbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Carbs"
+                android:textColor="#41B9E0"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/Carbs_circularProgressBar"
+                app:layout_constraintTop_toTopOf="@+id/Carbs_circularProgressBar" />
+
+            <TextView
+                android:id="@+id/tv_Carbs_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:maxLength="6"
+                android:text="345g"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_Carbs"
+                app:layout_constraintStart_toStartOf="@+id/tv_Carbs"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Carbs" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,9 @@ class InformationBodyFragment : Fragment() {
     private lateinit var binding: FragmentInformationBodyBinding
     private var selectedGander: String? = null // Variable to store the selected goal
     private var selectedWeaklyGoal: String? = null // Variable to store the selected activity level
+    private var selectedGoal: String? = null
+    private var selectedActivityLevel: String? = null
+
     private val args: InformationBodyFragmentArgs by navArgs()
 
 
@@ -38,15 +41,44 @@ class InformationBodyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val selectedGoal = args.selectedGoal
-        val selectedActivityLevel = args.selectedActivityLevel
-
+        selectedGoal = args.selectedGoal
+        selectedActivityLevel = args.selectedActivityLevel
         binding.toolbarTitle.text = "Personal Information"
 
+        setWeaklyGoals()
+        backButton()
+        changeStyle()
+        nextButton()
+    }
+
+    private fun backButton() {
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
 
+    private fun nextButton() {
+        binding.btnNext.setOnClickListener {
+            if (selectedGander != null && selectedWeaklyGoal != null) {
+                val action =
+                    InformationBodyFragmentDirections.actionInformationBodyFragmentToRegisterFragment(
+                        selectedGoal = selectedGoal!!,
+                        selectedActivityLevel = selectedActivityLevel!!,
+                        selectedGander = selectedGander!!,
+                        selectedWeaklyGoal = selectedWeaklyGoal!!,
+                        age = binding.etAge.text.toString(),
+                        height = binding.etHeight.text.toString(),
+                        weight = binding.etWeight.text.toString(),
+                        goalWight = binding.etGoalWeight.text.toString()
+                    )
+                findNavController().navigate(action)
+            } else {
+                // Show an error message or handle the case where not both values are selected
+            }
+        }
+    }
+
+    private fun changeStyle() {
         val selectGander: List<Pair<View, TextView>> = listOf(
             Pair(binding.viewMale, binding.tvMale),
             Pair(binding.viewFemale, binding.tvFemale),
@@ -71,22 +103,30 @@ class InformationBodyFragment : Fragment() {
             }
         }
 
-        binding.btnNext.setOnClickListener {
-            if (selectedGander != null && selectedWeaklyGoal != null) {
-                val action =
-                    InformationBodyFragmentDirections.actionInformationBodyFragmentToRegisterFragment(
-                        selectedGoal = selectedGoal,
-                        selectedActivityLevel = selectedActivityLevel,
-                        selectedGander = selectedGander!!,
-                        selectedWeaklyGoal = selectedWeaklyGoal!!,
-                        age = binding.etAge.text.toString(),
-                        height = binding.etHeight.text.toString(),
-                        weight = binding.etWeight.text.toString(),
-                        goalWight = binding.etGoalWeight.text.toString()
-                    )
-                findNavController().navigate(action)
-            } else {
-                // Show an error message or handle the case where not both values are selected
+    }
+
+    private fun setWeaklyGoals() {
+        // Set weakly goals based on selected goal
+        when (selectedGoal) {
+            "Lose weight" -> {
+                binding.tvLose1.text = "Lose 0.25 kg per week"
+                binding.tvLose2.text = "Lose 0.5 kg per week"
+                binding.tvLose3.text = "Lose 0.57 kg per week"
+                binding.tvLose4.text = "Lose 1 kg per week"
+            }
+            // Add similar cases for other goals
+            "Maintain weight" -> {
+                binding.tvLose1.text = "Maintain current weight"
+                binding.tvLose2.text = "Maintain current weight"
+                binding.tvLose3.text = "Maintain current weight"
+                binding.tvLose4.text = "Maintain current weight"
+            }
+
+            "Gain weight" -> {
+                binding.tvLose1.text = "Gain 0.25 kg per week"
+                binding.tvLose2.text = "Gain 0.5 kg per week"
+                binding.tvLose3.text = "Gain 0.57 kg per week"
+                binding.tvLose4.text = "Gain 1 kg per week"
             }
         }
     }
