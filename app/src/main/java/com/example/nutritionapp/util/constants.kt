@@ -1,10 +1,14 @@
 package com.example.nutritionapp.util
 
-import com.example.nutritionapp.data.model.NutritionDataF
-
 object FireStoreTAbles {
     const val User = "user"
     const val NutritionData = "Nutrition"
+
+}
+
+object FireStoreDocumentField {
+    const val DATE = "date"
+    const val USER_ID = "user_id"
 
 }
 

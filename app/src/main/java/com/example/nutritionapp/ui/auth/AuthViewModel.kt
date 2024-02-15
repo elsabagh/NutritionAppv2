@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.example.nutritionapp.data.model.GoalData
 import com.example.nutritionapp.data.model.PersonalInformation
 import com.example.nutritionapp.data.model.User
-import com.example.nutritionapp.util.UiState
 import com.example.nutritionapp.data.repository.AuthRepository
+import com.example.nutritionapp.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -39,6 +39,8 @@ class AuthViewModel @Inject constructor(
     private val _goalData = MutableLiveData<UiState<GoalData?>>()
     val goalData: LiveData<UiState<GoalData?>>
         get() = _goalData
+
+
     fun register(
         email: String,
         password: String,
@@ -100,6 +102,12 @@ class AuthViewModel @Inject constructor(
         }
     }
 
+    fun updateGoalData(dayGoal: GoalData) {
+        _dataDayGoal.value = UiState.Loading
+        repository.updateGoalData(dayGoal) {
+            _dataDayGoal.value = it
+        }
+    }
     fun getGoalData(userId: String) {
         _goalData.value = UiState.Loading
         repository.getGoalData(userId) {

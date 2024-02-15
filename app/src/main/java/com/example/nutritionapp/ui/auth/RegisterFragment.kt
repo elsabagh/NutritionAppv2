@@ -1,10 +1,10 @@
 package com.example.nutritionapp.ui.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -110,7 +110,7 @@ class RegisterFragment : Fragment() {
                             tCalories = calories,
                             tCarbs = carbs,
                             tProtein = protein,
-                            tFat = fat
+                            tFat = fat,
                         ).apply {
                             viewModel.getSession { this.user_id = it?.id ?: "" }
                         }
@@ -126,6 +126,8 @@ class RegisterFragment : Fragment() {
         return User(
             id = "",
             email = binding.etEmail.text.toString(),
+            first_name = binding.etFirstName.text.toString(),
+            last_name = binding.etLastName.text.toString(),
         )
     }
 

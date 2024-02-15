@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FBFBFB"
     tools:context=".ui.home.ResultFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,465 +31,857 @@
             android:textSize="24sp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/tv_daily_consumption"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="daily consumption"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_daily_consumption"
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_daily_consumption">
-
-        <ImageView
-            android:id="@+id/img_calendar"
-            android:layout_width="26dp"
-            android:layout_height="28dp"
-            android:clickable="true"
-            android:src="@drawable/baseline_calendar_month_24"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_prev_day"
-            app:layout_constraintEnd_toStartOf="@+id/tv_current_date"
-            app:layout_constraintStart_toEndOf="@+id/btn_prev_day"
-            app:layout_constraintTop_toTopOf="@+id/btn_prev_day" />
-
-
-        <ImageButton
-            android:id="@+id/btn_prev_day"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="?android:selectableItemBackground"
-            android:contentDescription="previous_day"
-            android:src="@drawable/left_arrow"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/img_calendar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btn_next_day"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="?android:selectableItemBackground"
-            android:contentDescription="next_day"
-            android:src="@drawable/right_arrow"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_current_date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_current_date"
-            app:layout_constraintTop_toTopOf="@+id/tv_current_date" />
-
-        <TextView
-            android:id="@+id/tv_current_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="2 July"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_calendar"
-            app:layout_constraintEnd_toStartOf="@+id/btn_next_day"
-            app:layout_constraintStart_toEndOf="@+id/img_calendar"
-            app:layout_constraintTop_toTopOf="@+id/img_calendar" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/Card_Calories"
-        android:layout_width="0dp"
-        android:layout_height="195dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-        app:layout_constraintStart_toStartOf="@+id/tv_daily_consumption"
-        app:layout_constraintTop_toBottomOf="@+id/tv_daily_consumption">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/cal_circularProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:indeterminate="false"
-                android:indeterminateOnly="false"
-                android:max="100"
-                android:progress="30"
-                android:rotation="180"
-                app:cpb_background_progressbar_color="#D6D6D6"
-                app:cpb_background_progressbar_width="12dp"
-                app:cpb_progress="40"
-                app:cpb_progress_direction="to_right"
-                app:cpb_progress_max="100"
-                app:cpb_progressbar_color="#19E069"
-                app:cpb_progressbar_width="12dp"
-                app:cpb_round_border="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+            android:layout_height="0dp">
 
             <TextView
-                android:id="@+id/tv_percentage"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_daily_consumption"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="30%"
+                android:text="daily consumption"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/cal_circularProgressBar"
-                app:layout_constraintEnd_toEndOf="@+id/cal_circularProgressBar"
-                app:layout_constraintStart_toStartOf="@+id/cal_circularProgressBar"
-                app:layout_constraintTop_toTopOf="@+id/cal_circularProgressBar" />
-
-            <ImageView
-                android:id="@+id/ico_target"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/target"
-                app:layout_constraintEnd_toStartOf="@+id/cal_circularProgressBar"
-                app:layout_constraintHorizontal_bias="0.473"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Calories"
-                android:textColor="#19E069"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_target_cal"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/group_calendar_prog"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_daily_consumption"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_daily_consumption">
+
+                <ImageView
+                    android:id="@+id/img_calendar_prog"
+                    android:layout_width="26dp"
+                    android:layout_height="28dp"
+                    android:clickable="true"
+                    android:src="@drawable/baseline_calendar_month_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_prev_day"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_current_date"
+                    app:layout_constraintStart_toEndOf="@+id/btn_prev_day"
+                    app:layout_constraintTop_toTopOf="@+id/btn_prev_day" />
+
+
+
+                <ImageButton
+                    android:id="@+id/btn_prev_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:background="?android:selectableItemBackground"
+                    android:contentDescription="@string/previous_day"
+                    android:src="@drawable/left_arrow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/img_calendar_prog"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btn_next_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:background="?android:selectableItemBackground"
+                    android:contentDescription="@string/next_day"
+                    android:src="@drawable/right_arrow"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_current_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_current_date"
+                    app:layout_constraintTop_toTopOf="@+id/tv_current_date" />
+
+                <TextView
+                    android:id="@+id/tv_current_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textAppearance="@style/SubTitleStyle"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_calendar_prog"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_next_day"
+                    app:layout_constraintStart_toEndOf="@+id/img_calendar_prog"
+                    app:layout_constraintTop_toTopOf="@+id/img_calendar_prog" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/group_calendar_prog" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/Card_Calories"
+                android:layout_width="0dp"
+                android:layout_height="195dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="@+id/group_calendar_prog"
+                app:layout_constraintStart_toStartOf="@+id/tv_daily_consumption"
+                app:layout_constraintTop_toBottomOf="@+id/calendarView">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                        android:id="@+id/cal_circularProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:indeterminate="false"
+                        android:indeterminateOnly="false"
+                        android:max="100"
+                        android:progress="30"
+                        android:rotation="180"
+                        app:cpb_background_progressbar_color="#D6D6D6"
+                        app:cpb_background_progressbar_width="12dp"
+                        app:cpb_progress="40"
+                        app:cpb_progress_direction="to_right"
+                        app:cpb_progress_max="100"
+                        app:cpb_progressbar_color="#19E069"
+                        app:cpb_progressbar_width="12dp"
+                        app:cpb_round_border="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tv_percentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="30%"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/cal_circularProgressBar"
+                        app:layout_constraintEnd_toEndOf="@+id/cal_circularProgressBar"
+                        app:layout_constraintStart_toStartOf="@+id/cal_circularProgressBar"
+                        app:layout_constraintTop_toTopOf="@+id/cal_circularProgressBar" />
+
+                    <ImageView
+                        android:id="@+id/ico_target"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/target"
+                        app:layout_constraintEnd_toStartOf="@+id/cal_circularProgressBar"
+                        app:layout_constraintHorizontal_bias="0.473"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="Calories"
+                        android:textColor="#19E069"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_target_cal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:maxLength="6"
+                        android:text="1860cal"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="@+id/ico_target"
+                        app:layout_constraintStart_toStartOf="@+id/ico_target"
+                        app:layout_constraintTop_toBottomOf="@+id/ico_target" />
+
+                    <ImageView
+                        android:id="@+id/ico_kcal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/kcal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cal_circularProgressBar"
+                        app:layout_constraintTop_toTopOf="@+id/ico_target" />
+
+                    <TextView
+                        android:id="@+id/tv_kcal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="71dp"
+                        android:maxLength="6"
+                        android:text="390cal"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/ico_kcal"
+                        app:layout_constraintStart_toStartOf="@+id/ico_kcal"
+                        app:layout_constraintTop_toBottomOf="@+id/ico_kcal" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/Card_Protein"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toStartOf="@+id/Card_Fats"
+                app:layout_constraintStart_toStartOf="@+id/Card_Calories"
+                app:layout_constraintTop_toBottomOf="@+id/Card_Calories">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                        android:id="@+id/Protein_circularProgressBar"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:indeterminate="false"
+                        android:indeterminateOnly="false"
+                        android:max="100"
+                        android:progress="30"
+                        android:rotation="180"
+                        app:cpb_background_progressbar_color="#D6D6D6"
+                        app:cpb_background_progressbar_width="4dp"
+                        app:cpb_progress="40"
+                        app:cpb_progress_direction="to_right"
+                        app:cpb_progress_max="100"
+                        app:cpb_progressbar_color="#FF902B"
+                        app:cpb_progressbar_width="4dp"
+                        app:cpb_round_border="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_percentage_Protein"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="30%"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/Protein_circularProgressBar"
+                        app:layout_constraintEnd_toEndOf="@+id/Protein_circularProgressBar"
+                        app:layout_constraintStart_toStartOf="@+id/Protein_circularProgressBar"
+                        app:layout_constraintTop_toTopOf="@+id/Protein_circularProgressBar" />
+
+                    <TextView
+                        android:id="@+id/tv_Protein"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="Protein"
+                        android:textColor="#FF902B"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/Protein_circularProgressBar"
+                        app:layout_constraintTop_toTopOf="@+id/Protein_circularProgressBar" />
+
+                    <TextView
+                        android:id="@+id/tv_Protein_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:maxLength="6"
+                        android:text="345g"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_Protein"
+                        app:layout_constraintStart_toStartOf="@+id/tv_Protein"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_Protein" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/Card_Fats"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Card_Protein"
+                app:layout_constraintEnd_toStartOf="@+id/Card_Carbs"
+                app:layout_constraintStart_toEndOf="@+id/Card_Protein"
+                app:layout_constraintTop_toTopOf="@+id/Card_Protein">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                        android:id="@+id/Fats_circularProgressBar"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:indeterminate="false"
+                        android:indeterminateOnly="false"
+                        android:max="100"
+                        android:progress="30"
+                        android:rotation="180"
+                        app:cpb_background_progressbar_color="#D6D6D6"
+                        app:cpb_background_progressbar_width="4dp"
+                        app:cpb_progress="40"
+                        app:cpb_progress_direction="to_right"
+                        app:cpb_progress_max="100"
+                        app:cpb_progressbar_color="#6D5BDD"
+                        app:cpb_progressbar_width="4dp"
+                        app:cpb_round_border="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_percentage_Fats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="30%"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/Fats_circularProgressBar"
+                        app:layout_constraintEnd_toEndOf="@+id/Fats_circularProgressBar"
+                        app:layout_constraintStart_toStartOf="@+id/Fats_circularProgressBar"
+                        app:layout_constraintTop_toTopOf="@+id/Fats_circularProgressBar" />
+
+                    <TextView
+                        android:id="@+id/tv_Fats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="Fats"
+                        android:textColor="#6D5BDD"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/Fats_circularProgressBar"
+                        app:layout_constraintTop_toTopOf="@+id/Fats_circularProgressBar" />
+
+                    <TextView
+                        android:id="@+id/tv_Fats_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:maxLength="6"
+                        android:text="345g"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_Fats"
+                        app:layout_constraintStart_toStartOf="@+id/tv_Fats"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_Fats" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/Card_Carbs"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Card_Fats"
+                app:layout_constraintEnd_toEndOf="@+id/Card_Calories"
+                app:layout_constraintStart_toEndOf="@+id/Card_Fats"
+                app:layout_constraintTop_toTopOf="@+id/Card_Fats">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                        android:id="@+id/Carbs_circularProgressBar"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:indeterminate="false"
+                        android:indeterminateOnly="false"
+                        android:max="100"
+                        android:progress="30"
+                        android:rotation="180"
+                        app:cpb_background_progressbar_color="#D6D6D6"
+                        app:cpb_background_progressbar_width="4dp"
+                        app:cpb_progress="40"
+                        app:cpb_progress_direction="to_right"
+                        app:cpb_progress_max="100"
+                        app:cpb_progressbar_color="#41B9E0"
+                        app:cpb_progressbar_width="4dp"
+                        app:cpb_round_border="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_percentage_Carbs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="30%"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/Carbs_circularProgressBar"
+                        app:layout_constraintEnd_toEndOf="@+id/Carbs_circularProgressBar"
+                        app:layout_constraintStart_toStartOf="@+id/Carbs_circularProgressBar"
+                        app:layout_constraintTop_toTopOf="@+id/Carbs_circularProgressBar" />
+
+                    <TextView
+                        android:id="@+id/tv_Carbs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="Carbs"
+                        android:textColor="#41B9E0"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/Carbs_circularProgressBar"
+                        app:layout_constraintTop_toTopOf="@+id/Carbs_circularProgressBar" />
+
+                    <TextView
+                        android:id="@+id/tv_Carbs_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:maxLength="6"
+                        android:text="345g"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_Carbs"
+                        app:layout_constraintStart_toStartOf="@+id/tv_Carbs"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_Carbs" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_add_meals"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/custom_btn"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:text="@string/add_meals"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/Card_Carbs"
+                app:layout_constraintStart_toStartOf="@+id/Card_Protein"
+                app:layout_constraintTop_toBottomOf="@+id/Card_Fats" />
+
+            <TextView
+                android:id="@+id/tv_type_meals"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:maxLength="6"
-                android:text="1860cal"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/meals"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/ico_target"
-                app:layout_constraintStart_toStartOf="@+id/ico_target"
-                app:layout_constraintTop_toBottomOf="@+id/ico_target" />
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/btn_add_meals"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_meals" />
 
-            <ImageView
-                android:id="@+id/ico_kcal"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/group_calendar_meals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/kcal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cal_circularProgressBar"
-                app:layout_constraintTop_toTopOf="@+id/ico_target" />
+                app:layout_constraintBottom_toBottomOf="@+id/tv_type_meals"
+                app:layout_constraintEnd_toEndOf="@+id/btn_add_meals"
+                app:layout_constraintTop_toTopOf="@+id/tv_type_meals">
 
-            <TextView
-                android:id="@+id/tv_kcal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/img_calendar_type_meals"
+                    android:layout_width="26dp"
+                    android:layout_height="28dp"
+                    android:clickable="true"
+                    android:src="@drawable/baseline_calendar_month_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_prev_day_m"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_current_date_m"
+                    app:layout_constraintStart_toEndOf="@+id/btn_prev_day_m"
+                    app:layout_constraintTop_toTopOf="@+id/btn_prev_day_m" />
+
+
+                <ImageButton
+                    android:id="@+id/btn_prev_day_m"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:background="?android:selectableItemBackground"
+                    android:contentDescription="@string/previous_day"
+                    android:src="@drawable/left_arrow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/img_calendar_type_meals"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btn_next_day_m"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:background="?android:selectableItemBackground"
+                    android:contentDescription="@string/next_day"
+                    android:src="@drawable/right_arrow"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_current_date_m"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_current_date_m"
+                    app:layout_constraintTop_toTopOf="@+id/tv_current_date_m" />
+
+                <TextView
+                    android:id="@+id/tv_current_date_m"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="2 July"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_calendar_type_meals"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_next_day_m"
+                    app:layout_constraintStart_toEndOf="@+id/img_calendar_type_meals"
+                    app:layout_constraintTop_toTopOf="@+id/img_calendar_type_meals" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/Card_breakfast"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="71dp"
-                android:maxLength="6"
-                android:text="390cal"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/ico_kcal"
-                app:layout_constraintStart_toStartOf="@+id/ico_kcal"
-                app:layout_constraintTop_toBottomOf="@+id/ico_kcal" />
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:layout_constraintEnd_toEndOf="@+id/group_calendar_meals"
+                app:layout_constraintStart_toStartOf="@+id/tv_type_meals"
+                app:layout_constraintTop_toBottomOf="@+id/group_calendar_meals">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/t_breakfast"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/breakfast"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/num_target_break"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:paddingHorizontal="5dp"
+                        android:text="580 cal"
+                        android:textColor="#19E0D4"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/t_breakfast"
+                        app:layout_constraintTop_toBottomOf="@+id/t_breakfast" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.mackhartley.roundedprogressbar.RoundedProgressBar
+                        android:layout_width="0dp"
+                        android:layout_height="16dp"
+                        android:layout_marginEnd="64dp"
+                        app:layout_constraintEnd_toStartOf="@+id/view"
+                        app:layout_constraintStart_toStartOf="@+id/num_target_break"
+                        app:layout_constraintTop_toBottomOf="@+id/num_target_break"
+                        app:rpbBackgroundColor="#D6D6D6"
+                        app:rpbCornerRadius="10dp"
+                        app:rpbProgress="35"
+                        app:rpbProgressColor="#19E0D4"
+                        app:rpbShowProgressText="false" />
 
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="18dp"
+                        android:layout_height="wrap_content"
+                        android:background="#19E0D4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/Card_Protein"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="2dp"
-        app:layout_constraintEnd_toStartOf="@+id/Card_Fats"
-        app:layout_constraintStart_toStartOf="@+id/Card_Calories"
-        app:layout_constraintTop_toBottomOf="@+id/Card_Calories">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/Protein_circularProgressBar"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/Card_launch"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:indeterminate="false"
-                android:indeterminateOnly="false"
-                android:max="100"
-                android:progress="30"
-                android:rotation="180"
-                app:cpb_background_progressbar_color="#D6D6D6"
-                app:cpb_background_progressbar_width="4dp"
-                app:cpb_progress="40"
-                app:cpb_progress_direction="to_right"
-                app:cpb_progress_max="100"
-                app:cpb_progressbar_color="#FF902B"
-                app:cpb_progressbar_width="4dp"
-                app:cpb_round_border="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="90dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:layout_constraintEnd_toEndOf="@+id/Card_breakfast"
+                app:layout_constraintStart_toStartOf="@+id/Card_breakfast"
+                app:layout_constraintTop_toBottomOf="@+id/Card_breakfast">
 
-            <TextView
-                android:id="@+id/tv_percentage_Protein"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="30%"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/Protein_circularProgressBar"
-                app:layout_constraintEnd_toEndOf="@+id/Protein_circularProgressBar"
-                app:layout_constraintStart_toStartOf="@+id/Protein_circularProgressBar"
-                app:layout_constraintTop_toTopOf="@+id/Protein_circularProgressBar" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_Protein"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="4dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Protein"
-                android:textColor="#FF902B"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/Protein_circularProgressBar"
-                app:layout_constraintTop_toTopOf="@+id/Protein_circularProgressBar" />
+                    <TextView
+                        android:id="@+id/t_launch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/launch"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_Protein_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:maxLength="6"
-                android:text="345g"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tv_Protein"
-                app:layout_constraintStart_toStartOf="@+id/tv_Protein"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Protein" />
+                    <TextView
+                        android:id="@+id/num_target_launch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:paddingHorizontal="5dp"
+                        android:text="580 cal"
+                        android:textColor="#42B4E4"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/t_launch"
+                        app:layout_constraintTop_toBottomOf="@+id/t_launch" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.mackhartley.roundedprogressbar.RoundedProgressBar
+                        android:layout_width="0dp"
+                        android:layout_height="16dp"
+                        android:layout_marginEnd="64dp"
+                        app:layout_constraintEnd_toStartOf="@+id/view_launch"
+                        app:layout_constraintStart_toStartOf="@+id/num_target_launch"
+                        app:layout_constraintTop_toBottomOf="@+id/num_target_launch"
+                        app:rpbBackgroundColor="#D6D6D6"
+                        app:rpbCornerRadius="10dp"
+                        app:rpbProgress="35"
+                        app:rpbProgressColor="#42B4E4"
+                        app:rpbShowProgressText="false" />
 
+                    <View
+                        android:id="@+id/view_launch"
+                        android:layout_width="18dp"
+                        android:layout_height="wrap_content"
+                        android:background="#42B4E4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/Card_Fats"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/Card_Protein"
-        app:layout_constraintEnd_toStartOf="@+id/Card_Carbs"
-        app:layout_constraintStart_toEndOf="@+id/Card_Protein"
-        app:layout_constraintTop_toTopOf="@+id/Card_Protein">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/Fats_circularProgressBar"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/Card_dinner"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:indeterminate="false"
-                android:indeterminateOnly="false"
-                android:max="100"
-                android:progress="30"
-                android:rotation="180"
-                app:cpb_background_progressbar_color="#D6D6D6"
-                app:cpb_background_progressbar_width="4dp"
-                app:cpb_progress="40"
-                app:cpb_progress_direction="to_right"
-                app:cpb_progress_max="100"
-                app:cpb_progressbar_color="#6D5BDD"
-                app:cpb_progressbar_width="4dp"
-                app:cpb_round_border="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="90dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:layout_constraintEnd_toEndOf="@+id/Card_launch"
+                app:layout_constraintStart_toStartOf="@+id/Card_launch"
+                app:layout_constraintTop_toBottomOf="@+id/Card_launch">
 
-            <TextView
-                android:id="@+id/tv_percentage_Fats"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="30%"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/Fats_circularProgressBar"
-                app:layout_constraintEnd_toEndOf="@+id/Fats_circularProgressBar"
-                app:layout_constraintStart_toStartOf="@+id/Fats_circularProgressBar"
-                app:layout_constraintTop_toTopOf="@+id/Fats_circularProgressBar" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_Fats"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="4dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Fats"
-                android:textColor="#6D5BDD"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/Fats_circularProgressBar"
-                app:layout_constraintTop_toTopOf="@+id/Fats_circularProgressBar" />
+                    <TextView
+                        android:id="@+id/t_dinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/dinner"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_Fats_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:maxLength="6"
-                android:text="345g"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tv_Fats"
-                app:layout_constraintStart_toStartOf="@+id/tv_Fats"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Fats" />
+                    <TextView
+                        android:id="@+id/num_target_dinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:paddingHorizontal="5dp"
+                        android:text="580 cal"
+                        android:textColor="#4475D2"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/t_dinner"
+                        app:layout_constraintTop_toBottomOf="@+id/t_dinner" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.mackhartley.roundedprogressbar.RoundedProgressBar
+                        android:layout_width="0dp"
+                        android:layout_height="16dp"
+                        android:layout_marginEnd="64dp"
+                        app:layout_constraintEnd_toStartOf="@+id/view_dinner"
+                        app:layout_constraintStart_toStartOf="@+id/num_target_dinner"
+                        app:layout_constraintTop_toBottomOf="@+id/num_target_dinner"
+                        app:rpbBackgroundColor="#D6D6D6"
+                        app:rpbCornerRadius="10dp"
+                        app:rpbProgress="35"
+                        app:rpbProgressColor="#4475D2"
+                        app:rpbShowProgressText="false" />
 
+                    <View
+                        android:id="@+id/view_dinner"
+                        android:layout_width="18dp"
+                        android:layout_height="wrap_content"
+                        android:background="#4475D2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/Card_Carbs"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="4dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/Card_Fats"
-        app:layout_constraintEnd_toEndOf="@+id/Card_Calories"
-        app:layout_constraintStart_toEndOf="@+id/Card_Fats"
-        app:layout_constraintTop_toTopOf="@+id/Card_Fats">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/Carbs_circularProgressBar"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/Card_snacks"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:indeterminate="false"
-                android:indeterminateOnly="false"
-                android:max="100"
-                android:progress="30"
-                android:rotation="180"
-                app:cpb_background_progressbar_color="#D6D6D6"
-                app:cpb_background_progressbar_width="4dp"
-                app:cpb_progress="40"
-                app:cpb_progress_direction="to_right"
-                app:cpb_progress_max="100"
-                app:cpb_progressbar_color="#41B9E0"
-                app:cpb_progressbar_width="4dp"
-                app:cpb_round_border="true"
+                android:layout_height="90dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="64dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="@+id/Card_dinner"
+                app:layout_constraintStart_toStartOf="@+id/Card_dinner"
+                app:layout_constraintTop_toBottomOf="@+id/Card_dinner">
 
-            <TextView
-                android:id="@+id/tv_percentage_Carbs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="30%"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/Carbs_circularProgressBar"
-                app:layout_constraintEnd_toEndOf="@+id/Carbs_circularProgressBar"
-                app:layout_constraintStart_toStartOf="@+id/Carbs_circularProgressBar"
-                app:layout_constraintTop_toTopOf="@+id/Carbs_circularProgressBar" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_Carbs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="4dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Carbs"
-                android:textColor="#41B9E0"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/Carbs_circularProgressBar"
-                app:layout_constraintTop_toTopOf="@+id/Carbs_circularProgressBar" />
+                    <TextView
+                        android:id="@+id/t_snacks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/snack"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_Carbs_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:maxLength="6"
-                android:text="345g"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tv_Carbs"
-                app:layout_constraintStart_toStartOf="@+id/tv_Carbs"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Carbs" />
+                    <TextView
+                        android:id="@+id/num_target_snacks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:paddingHorizontal="5dp"
+                        android:text="580 cal"
+                        android:textColor="#8919E0"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/t_snacks"
+                        app:layout_constraintTop_toBottomOf="@+id/t_snacks" />
+
+
+                    <com.mackhartley.roundedprogressbar.RoundedProgressBar
+                        android:layout_width="0dp"
+                        android:layout_height="16dp"
+                        android:layout_marginEnd="64dp"
+                        app:layout_constraintEnd_toStartOf="@+id/view_snack"
+                        app:layout_constraintStart_toStartOf="@+id/num_target_snacks"
+                        app:layout_constraintTop_toBottomOf="@+id/num_target_snacks"
+                        app:rpbBackgroundColor="#D6D6D6"
+                        app:rpbCornerRadius="10dp"
+                        app:rpbProgress="35"
+                        app:rpbProgressColor="#8919E0"
+                        app:rpbShowProgressText="false" />
+
+                    <View
+                        android:id="@+id/view_snack"
+                        android:layout_width="18dp"
+                        android:layout_height="wrap_content"
+                        android:background="#8919E0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

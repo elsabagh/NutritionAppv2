@@ -1,15 +1,22 @@
 package com.example.nutritionapp.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.nutritionapp.R
 import com.example.nutritionapp.databinding.FragmentResultBinding
 import com.example.nutritionapp.ui.auth.AuthViewModel
 import com.example.nutritionapp.util.UiState
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 
 
 private const val ARG_PARAM1 = "param1"
@@ -19,7 +26,8 @@ class ResultFragment : Fragment() {
     private var param1: String? = null
     private lateinit var binding: FragmentResultBinding
     private val viewModel: AuthViewModel by viewModels()
-
+    private var selectedDate: Date? = null
+    private val dateFormat = SimpleDateFormat("MMM d")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -39,7 +47,31 @@ class ResultFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-// Observe goal data in your Fragment or Activity
+
+        binding.btnAddMeals.setOnClickListener {
+            navigateToMealsFragment()
+        }
+        selectedDate = Calendar.getInstance().time
+        updateCurrentDateText(selectedDate)
+
+        binding.calendarView.visibility = View.GONE
+        binding.imgCalendarProg.setOnClickListener {
+            if (binding.calendarView.visibility == View.VISIBLE) {
+                binding.calendarView.visibility = View.GONE
+            } else {
+                // Set the calendar to the selectedDate (current date)
+                val calendar = Calendar.getInstance()
+                calendar.time = selectedDate ?: Date()
+                binding.calendarView.date = calendar.timeInMillis
+                binding.calendarView.visibility = View.VISIBLE
+            }
+        }
+        nextDay()
+        prevDay()
+        observer()
+    }
+
+    private fun observer() {
         // Observe goal data in your Fragment or Activity
         viewModel.goalData.observe(viewLifecycleOwner) { uiState ->
             when (uiState) {
@@ -47,27 +79,54 @@ class ResultFragment : Fragment() {
                     val goalData = uiState.data
                     if (goalData != null) {
                         // Update your UI with the retrieved goal data
-                        binding.tvTargetCal.text = goalData.tCalories ?: "N/A"
-                        binding.tvCarbsNum.text = goalData.tCarbs ?: "N/A"
-                        binding.tvProteinNum.text = goalData.tProtein ?: "N/A"
-                        binding.tvFatsNum.text = goalData.tFat ?: "N/A"
-                        binding.tvKcal.text = goalData.tFat ?: "N/A"
+                        binding.tvTargetCal.text = goalData.tCalories ?: "0.0"
+                        binding.tvCarbsNum.text = goalData.tCarbs ?: "0.0"
+                        binding.tvProteinNum.text = goalData.tProtein ?: "0.0"
+                        binding.tvFatsNum.text = goalData.tFat ?: "0.0"
 
+                        // Check if the date in the goal data is equal to the current date
+                        val currentDate = Calendar.getInstance().time
+                        if (!dateFormat.format(goalData.date).equals(dateFormat.format(currentDate), ignoreCase = true)) {
+                            // If not equal, set tvKcal to "0.0"
+                            binding.tvKcal.text = "0.0"
+                        } else {
+                            // If equal, set tvKcal to the consumed calories
+                            binding.tvKcal.text = goalData.sCalories.toString() ?: "N/A"
+                        }
 
                         updateCircularProgressBar(
+                            binding.calCircularProgressBar,
                             goalData.tCalories?.toFloat() ?: 0f,
-                            goalData.tFat?.toFloat() ?: 0f
+                            goalData.sCalories?.toFloat() ?: 0f,
+                            binding.tvPercentage
                         )
-
+                        updateCircularProgressBar(
+                            binding.CarbsCircularProgressBar,
+                            goalData.tCarbs?.toFloat() ?: 0f,
+                            goalData.sCarbs?.toFloat() ?: 0f,
+                            binding.tvPercentageCarbs
+                        )
+                        updateCircularProgressBar(
+                            binding.FatsCircularProgressBar,
+                            goalData.tFat?.toFloat() ?: 0f,
+                            goalData.sFat?.toFloat() ?: 0f,
+                            binding.tvPercentageFats
+                        )
+                        updateCircularProgressBar(
+                            binding.ProteinCircularProgressBar,
+                            goalData.tProtein?.toFloat() ?: 0f,
+                            goalData.sProtein?.toFloat() ?: 0f,
+                            binding.tvPercentageProtein
+                        )
                     } else {
                         // No goal data found for the user
                         // Handle this case, e.g., display a message or set default values
-                        binding.tvTargetCal.text = "N/A"
-                        binding.tvCarbsNum.text = "N/A"
-                        binding.tvProteinNum.text = "N/A"
-                        binding.tvFatsNum.text = "N/A"
-                        binding.tvKcal.text = "N/A"
-                        updateCircularProgressBar(0f, 0f)
+                        binding.tvTargetCal.text = "0.0"
+                        binding.tvCarbsNum.text = "0.0"
+                        binding.tvProteinNum.text = "0.0"
+                        binding.tvFatsNum.text = "0.0"
+                        binding.tvKcal.text = "0.0"
+                        updateCircularProgressBar(binding.calCircularProgressBar, 0f, 0f, binding.tvPercentage)
                     }
                 }
 
@@ -99,7 +158,13 @@ class ResultFragment : Fragment() {
         }
     }
 
-    private fun updateCircularProgressBar(targetCalories: Float, consumedCalories: Float) {
+
+    private fun updateCircularProgressBar(
+        progressBar: CircularProgressBar,
+        targetCalories: Float,
+        consumedCalories: Float,
+        percentageTextView: TextView
+    ) {
         val progressPercentage = if (targetCalories > 0) {
             // Calculate the percentage based on consumedCalories and targetCalories
             (consumedCalories / targetCalories) * 100
@@ -107,11 +172,43 @@ class ResultFragment : Fragment() {
             0f
         }
 
-        // Set the progress to CircularProgressBar
-        binding.calCircularProgressBar.progress = progressPercentage
-        binding.tvPercentage.text = String.format("%.0f%%", progressPercentage)
+        progressBar.progress = progressPercentage
+        percentageTextView.text = String.format("%.0f%%", progressPercentage)
     }
 
+    private fun navigateToMealsFragment() {
+        // You may need to pass any necessary data to MealsFragment using a Bundle
+        val bundle = Bundle()
+        findNavController().navigate(R.id.action_resultFragment_to_MealsListingFragment, bundle)
+    }
+
+    private fun nextDay() {
+        binding.btnNextDay.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            calendar.time = selectedDate ?: Date()
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+            selectedDate = calendar.time
+            updateCurrentDateText(selectedDate)
+            binding.calendarView.date = selectedDate?.time ?: System.currentTimeMillis()
+
+        }
+    }
+
+    private fun prevDay() {
+        binding.btnPrevDay.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            calendar.time = selectedDate ?: Date()
+            calendar.add(Calendar.DAY_OF_MONTH, -1)
+            selectedDate = calendar.time
+            updateCurrentDateText(selectedDate)
+            binding.calendarView.date = selectedDate?.time ?: System.currentTimeMillis()
+
+        }
+    }
+
+    private fun updateCurrentDateText(date: Date?) {
+        binding.tvCurrentDate.text = dateFormat.format(date ?: Date())
+    }
     companion object {
         @JvmStatic
         fun newInstance(param1: String) =

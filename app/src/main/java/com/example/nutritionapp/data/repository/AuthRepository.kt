@@ -47,4 +47,5 @@ interface AuthRepository {
 
     fun getGoalData(userId: String, result: (UiState<GoalData?>) -> Unit)
 
+    fun updateGoalData(goalData: GoalData, result: (UiState<String>) -> Unit)
 }

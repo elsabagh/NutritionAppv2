@@ -102,4 +102,6 @@ dependencies {
     implementation "androidx.core:core-splashscreen:1.0.0"
 
     implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
+    implementation 'com.github.MackHartley:RoundedProgressBar:3.0.0'
+
 }

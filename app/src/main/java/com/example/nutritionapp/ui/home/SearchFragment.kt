@@ -4,16 +4,17 @@ import android.content.Context
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.nutritionapp.R
 import com.example.nutritionapp.data.model.NutritionDataF
 import com.example.nutritionapp.databinding.FragmentSearchBinding
@@ -37,7 +38,7 @@ class SearchFragment : Fragment() {
     private val searchViewModel: SearchViewModel by viewModels()
     private val searchNutritionViewModel: SearchNutritionViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
-    private var selectedMealType: String? = null
+    private var selectedMealType: String = ""
     private var selectedButtonId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,24 +87,42 @@ class SearchFragment : Fragment() {
 
         binding.addMeal.setOnClickListener {
             if (validation()) {
-                val selectedMeal = selectedMealType ?: ""
-                searchNutritionViewModel.addNutrition(
-                    NutritionDataF(
-                        id = "",
-                        foodName = binding.itemname.text.toString(),
-                        calories = binding.calories.text.toString(),
-                        carbs = binding.carb.text.toString(),
-                        fat = binding.fats.text.toString(),
-                        protein = binding.Protien.text.toString(),
-                        meal = selectedMeal,
-                        date = Date()
-                    ).apply {
-                        authViewModel.getSession { this.user_id = it?.id ?: "" }
+                if (selectedMealType.isNotEmpty()) {
+                    val foodName = binding.itemname.text.toString()
+                    val calories = binding.calories.text.toString().toDoubleOrNull() ?: 0.0
+                    val carbs = binding.carb.text.toString().toDoubleOrNull() ?: 0.0
+                    val fat = binding.fats.text.toString().toDoubleOrNull() ?: 0.0
+                    val protein = binding.Protein.text.toString().toDoubleOrNull() ?: 0.0
+
+                    // Check if any of the nutrient values are non-zero
+                    if (calories > 0 || carbs > 0 || fat > 0 || protein > 0) {
+                        searchNutritionViewModel.addNutrition(
+                            NutritionDataF(
+                                id = "",
+                                foodName = foodName,
+                                calories = calories.toString(),
+                                carbs = carbs.toString(),
+                                fat = fat.toString(),
+                                protein = protein.toString(),
+                                meal = selectedMealType,
+                                date = Date()
+                            ).apply {
+                                authViewModel.getSession { this.user_id = it?.id ?: "" }
+                            }
+                        )
+
+                        navigateToMealsFragment()
+
+                    } else {
+                        // Display a message indicating that meal data is empty
+                        toast("Please enter valid nutrient data")
                     }
-                )
+                } else {
+                    // Handle the case where no meal type is selected
+                    toast("Please select a meal type")
+                }
             }
         }
-
     }
 
     private fun updateButtonColor(clickedButtonId: Int) {
@@ -127,16 +146,22 @@ class SearchFragment : Fragment() {
                 searchViewModel.searchIngredient(ingredient)
                 binding.mealLineChart.visibility = View.VISIBLE
 
+                // Hide the keyboard after search
+                hideKeyboard()
             } else {
                 binding.calories.text = "-"
-                binding.Protien.text = "0"
+                binding.Protein.text = "0"
                 binding.carb.text = "0"
                 binding.fats.text = "0"
                 binding.itemname.text = "0"
                 binding.mealLineChart.visibility = View.GONE
-
             }
         }
+    }
+
+    private fun hideKeyboard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.searchbar.windowToken, 0)
     }
 
 
@@ -168,21 +193,21 @@ class SearchFragment : Fragment() {
                 }
 
                 is UiState.Success -> {
-
                     val nutrientResponse = uiState.data
                     val ingredient = binding.searchbar.text.toString()
                     binding.calories.text = nutrientResponse.calories.toString()
-                    binding.Protien.text =
-                        nutrientResponse.totalNutrients.protein.quantity.toString()
-                    binding.carb.text =
-                        nutrientResponse.totalNutrients.carbohydrates.quantity.toString()
-                    binding.fats.text = nutrientResponse.totalNutrients.fat.quantity.toString()
+                    val proteinQuantity = nutrientResponse.totalNutrients.protein?.quantity ?: 0.0
+                    val carbQuantity = nutrientResponse.totalNutrients.carbohydrates?.quantity ?: 0.0
+                    val fatQuantity = nutrientResponse.totalNutrients.fat?.quantity ?: 0.0
+                    binding.Protein.text =proteinQuantity.toString()
+                    binding.carb.text = carbQuantity.toString()
+                    binding.fats.text = fatQuantity.toString()
                     binding.itemname.text = ingredient
 
                     val totalCalories = nutrientResponse.calories.toDouble()
-                    val totalProtein = nutrientResponse.totalNutrients.protein.quantity
-                    val totalCarbs = nutrientResponse.totalNutrients.carbohydrates.quantity
-                    val totalFats = nutrientResponse.totalNutrients.fat.quantity
+                    val totalProtein = proteinQuantity
+                    val totalCarbs = carbQuantity
+                    val totalFats = fatQuantity
 
                     val chart = binding.mealLineChart
                     chart.setUsePercentValues(true)
@@ -222,6 +247,7 @@ class SearchFragment : Fragment() {
 
                 }
 
+
                 is UiState.Failure -> {
                     // Show error message
                     Toast.makeText(
@@ -237,32 +263,33 @@ class SearchFragment : Fragment() {
     private fun isInternetAvailable(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val network = connectivityManager.activeNetwork ?: return false
-            val networkCapabilities =
-                connectivityManager.getNetworkCapabilities(network) ?: return false
-            return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-        } else {
-            val networkInfo = connectivityManager.activeNetworkInfo ?: return false
-            return networkInfo.isConnected
-        }
+        val network = connectivityManager.activeNetwork ?: return false
+        val networkCapabilities =
+            connectivityManager.getNetworkCapabilities(network) ?: return false
+        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    private fun navigateToMealsFragment() {
+        // You may need to pass any necessary data to MealsFragment using a Bundle
+        val bundle = Bundle()
+        findNavController().navigate(R.id.action_resultFragment_to_MealsListingFragment, bundle)
     }
 
     private fun validation(): Boolean {
         var isValid = true
-        if (binding.Protien.text.toString().isNullOrEmpty()) {
+        if (binding.Protein.text.toString().isEmpty()) {
             isValid = false
             toast("check internet")
         }
-        if (binding.calories.text.toString().isNullOrEmpty()) {
+        if (binding.calories.text.toString().isEmpty()) {
             isValid = false
             toast("check internet")
         }
-        if (binding.carb.text.toString().isNullOrEmpty()) {
+        if (binding.carb.text.toString().isEmpty()) {
             isValid = false
             toast("check internet")
         }
-        if (binding.fats.text.toString().isNullOrEmpty()) {
+        if (binding.fats.text.toString().isEmpty()) {
             isValid = false
             toast("check internet")
         }

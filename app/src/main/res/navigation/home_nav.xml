@@ -14,6 +14,24 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_MealsListingFragment"
+            app:destination="@id/MealsListingFragment" />
+    </fragment>
+
+
+    <action
+        android:id="@+id/action_resultFragment_to_MealsListingFragment"
+        app:destination="@id/MealsListingFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true" />
+
+    <fragment
+        android:id="@+id/MealsListingFragment"
+        android:name="com.example.nutritionapp.ui.home.MealsListingFragment"
+        android:label="fragment_meals"
+        tools:layout="@layout/fragment_meal_listing" >
+
     </fragment>
 
 </navigation>

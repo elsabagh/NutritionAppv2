@@ -1,18 +1,15 @@
 package com.example.nutritionapp.ui.onBoarding
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.nutritionapp.R
-import com.example.nutritionapp.data.model.PersonalInformation
 import com.example.nutritionapp.databinding.FragmentInformationBodyBinding
-import com.example.nutritionapp.ui.auth.AuthViewModel
 import com.example.nutritionapp.util.applyClickBehavior
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,7 +40,7 @@ class InformationBodyFragment : Fragment() {
 
         selectedGoal = args.selectedGoal
         selectedActivityLevel = args.selectedActivityLevel
-        binding.toolbarTitle.text = "Personal Information"
+        binding.toolbarTitle.text = getString(R.string.personal_information)
 
         setWeaklyGoals()
         backButton()

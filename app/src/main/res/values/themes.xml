@@ -7,4 +7,8 @@
     </style>
 
     <style name="Theme.NutritionApp" parent="Base.Theme.NutritionApp" />
+    <style name="SubTitleStyle">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">16dp</item>
+    </style>
 </resources>

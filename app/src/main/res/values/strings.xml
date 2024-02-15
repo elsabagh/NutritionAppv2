@@ -41,4 +41,16 @@
     <string name="activity_level">Activity Level</string>
     <string name="back_button">back button</string>
     <string name="female">Female</string>
+    <string name="add_meals">+ Add meals</string>
+    <string name="meals">meals</string>
+    <string name="previous_day">previous_day</string>
+    <string name="next_day">next_day</string>
+    <string name="breakfast">breakfast</string>
+    <string name="launch">launch</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="dinner">dinner</string>
+    <string name="snack">snack</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="result">Result</string>
 </resources>

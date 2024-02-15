@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
+import java.util.Calendar
 
 class AuthRepositoryImp(
     private val auth: FirebaseAuth,
@@ -198,6 +199,7 @@ class AuthRepositoryImp(
     ) {
         val document = database.collection("Goal").document()
         goalData.id = document.id
+        goalData.date = Calendar.getInstance().time // Set the current date
         document.set(goalData)
             .addOnSuccessListener {
                 result.invoke(
@@ -211,7 +213,6 @@ class AuthRepositoryImp(
             }
     }
 
-    // Inside AuthRepositoryImp class
     override fun getGoalData(userId: String, result: (UiState<GoalData?>) -> Unit) {
         database.collection("Goal").whereEqualTo("user_id", userId)
             .get()
@@ -225,12 +226,52 @@ class AuthRepositoryImp(
                         result.invoke(UiState.Success(null)) // No goal data found
                     }
                 } else {
-                    result.invoke(UiState.Failure(task.exception?.localizedMessage ?: "Failed to fetch goal data"))
+                    result.invoke(
+                        UiState.Failure(
+                            task.exception?.localizedMessage ?: "Failed to fetch goal data"
+                        )
+                    )
                 }
             }
     }
 
+    override fun updateGoalData(goalData: GoalData, result: (UiState<String>) -> Unit) {
+        // First, check if the document exists for the user's goal data
+        database.collection("Goal").whereEqualTo("user_id", goalData.user_id)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (!documents.isEmpty) {
+                    // If the document exists, update its sCalories field
+                    val document = documents.documents[0]
+                    val existingGoalData = document.toObject(GoalData::class.java)
+                    existingGoalData?.sCalories = goalData.sCalories // Update sCalories field
+                    existingGoalData?.sCarbs = goalData.sCarbs // Update sCarbs field
+                    existingGoalData?.sFat = goalData.sFat // Update sFat field
+                    existingGoalData?.sProtein = goalData.sProtein // Update sProtein field
+                    existingGoalData?.date = Calendar.getInstance().time // Update the date field
 
-
-
+                    // Update the document in Firestore
+                    document.reference.set(existingGoalData!!)
+                        .addOnSuccessListener {
+                            result.invoke(UiState.Success("Goal has been updated successfully"))
+                        }
+                        .addOnFailureListener { exception ->
+                            result.invoke(UiState.Failure(exception.localizedMessage))
+                        }
+                } else {
+                    // If the document doesn't exist, create a new document
+                    database.collection("Goal").document(goalData.user_id)
+                        .set(goalData)
+                        .addOnSuccessListener {
+                            result.invoke(UiState.Success("New goal data created successfully"))
+                        }
+                        .addOnFailureListener { exception ->
+                            result.invoke(UiState.Failure(exception.localizedMessage))
+                        }
+                }
+            }
+            .addOnFailureListener { exception ->
+                result.invoke(UiState.Failure(exception.localizedMessage))
+            }
+    }
 }

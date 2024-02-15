@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.nutritionapp.R
+import java.util.Calendar
+import java.util.Date
 
 
 fun View.hide() {
@@ -26,9 +28,10 @@ fun View.enabled() {
 }
 
 fun Fragment.toast(msg: String?) {
-    Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
+    if (!msg.isNullOrEmpty()) {
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+    }
 }
-
 
 fun String.isValidEmail() =
     isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
@@ -53,4 +56,24 @@ fun List<Pair<View, TextView>>.applyClickBehavior(selectedGoal: (String?) -> Uni
             selectedGoal(textView.text.toString()) // Invoke the provided onClick lambda with the text from the clicked TextView
         }
     }
+}
+
+fun Date.startOfDay(): Date {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    calendar.set(Calendar.HOUR_OF_DAY, 0)
+    calendar.set(Calendar.MINUTE, 0)
+    calendar.set(Calendar.SECOND, 0)
+    calendar.set(Calendar.MILLISECOND, 0)
+    return calendar.time
+}
+
+fun Date.endOfDay(): Date {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    calendar.set(Calendar.HOUR_OF_DAY, 23)
+    calendar.set(Calendar.MINUTE, 59)
+    calendar.set(Calendar.SECOND, 59)
+    calendar.set(Calendar.MILLISECOND, 999)
+    return calendar.time
 }

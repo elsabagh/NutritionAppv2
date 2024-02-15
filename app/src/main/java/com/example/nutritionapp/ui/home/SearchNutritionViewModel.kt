@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nutritionapp.data.model.NutritionDataF
+import com.example.nutritionapp.data.model.User
 import com.example.nutritionapp.data.repository.NutritionFoodRepository
 import com.example.nutritionapp.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,6 +20,11 @@ class SearchNutritionViewModel @Inject constructor(
     val addNutrition: LiveData<UiState<String>>
         get() = _addNutrition
 
+
+    private val _nutritionData = MutableLiveData<UiState<List<NutritionDataF>>>()
+    val nutritionData: LiveData<UiState<List<NutritionDataF>>>
+        get() = _nutritionData
+
     fun addNutrition(nutrition: NutritionDataF) {
         _addNutrition.value = UiState.Loading
         repository.addNutrition(nutrition) {
@@ -25,4 +32,12 @@ class SearchNutritionViewModel @Inject constructor(
         }
     }
 
+
+    fun getNutritionData(user: User?, date: Date? = null) {
+        _nutritionData.value = UiState.Loading
+        repository.getNutritionData(user, date) {
+            _nutritionData.value = it
+        }
+    }
 }
+
