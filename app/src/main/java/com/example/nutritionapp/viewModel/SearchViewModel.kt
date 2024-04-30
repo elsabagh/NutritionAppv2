@@ -1,16 +1,13 @@
-package com.example.nutritionapp.ui.home
+package com.example.nutritionapp.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nutritionapp.data.model.NutritionDataF
-import com.example.nutritionapp.data.model.retrofit.EdamamApiClient
 import com.example.nutritionapp.data.model.retrofit.NutrientResponse
 import com.example.nutritionapp.data.repository.NutritionRepository
 import com.example.nutritionapp.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

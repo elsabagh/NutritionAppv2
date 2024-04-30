@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.nutritionapp.R
 import com.example.nutritionapp.databinding.FragmentResultBinding
-import com.example.nutritionapp.ui.auth.AuthViewModel
 import com.example.nutritionapp.util.UiState
+import com.example.nutritionapp.viewModel.AuthViewModel
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -66,9 +66,29 @@ class ResultFragment : Fragment() {
                 binding.calendarView.visibility = View.VISIBLE
             }
         }
+
+        binding.CardBreakfast.setOnClickListener {
+            navigateToMealsListingFragment("Breakfast")
+        }
+        binding.CardLaunch.setOnClickListener {
+            navigateToMealsListingFragment("Lunch")
+        }
+        binding.CardDinner.setOnClickListener {
+            navigateToMealsListingFragment("Dinner")
+        }
+        binding.CardSnacks.setOnClickListener {
+            navigateToMealsListingFragment("Snacks")
+        }
         nextDay()
         prevDay()
         observer()
+    }
+
+    private fun navigateToMealsListingFragment(mealType: String) {
+        val bundle = Bundle().apply {
+            putString("mealType", mealType)
+        }
+        findNavController().navigate(R.id.action_resultFragment_to_MealsListingFragment, bundle)
     }
 
     private fun observer() {
@@ -84,40 +104,64 @@ class ResultFragment : Fragment() {
                         binding.tvProteinNum.text = goalData.tProtein ?: "0.0"
                         binding.tvFatsNum.text = goalData.tFat ?: "0.0"
 
+
                         // Check if the date in the goal data is equal to the current date
                         val currentDate = Calendar.getInstance().time
                         if (!dateFormat.format(goalData.date).equals(dateFormat.format(currentDate), ignoreCase = true)) {
                             // If not equal, set tvKcal to "0.0"
                             binding.tvKcal.text = "0.0"
+                            updateCircularProgressBar(
+                                binding.calCircularProgressBar,
+                                goalData.tCalories?.toFloat() ?: 0f,
+                                0f,
+                                binding.tvPercentage
+                            )
+                            updateCircularProgressBar(
+                                binding.CarbsCircularProgressBar,
+                                goalData.tCarbs?.toFloat() ?: 0f,
+                                0f,
+                                binding.tvPercentageCarbs
+                            )
+                            updateCircularProgressBar(
+                                binding.FatsCircularProgressBar,
+                                goalData.tFat?.toFloat() ?: 0f,
+                                0f,
+                                binding.tvPercentageFats
+                            )
+                            updateCircularProgressBar(
+                                binding.ProteinCircularProgressBar,
+                                goalData.tProtein?.toFloat() ?: 0f,
+                                0f,
+                                binding.tvPercentageProtein
+                            )
                         } else {
                             // If equal, set tvKcal to the consumed calories
-                            binding.tvKcal.text = goalData.sCalories.toString() ?: "N/A"
+                            binding.tvKcal.text = goalData.sCalories.toString() ?: "0.0"
+                            updateCircularProgressBar(
+                                binding.calCircularProgressBar,
+                                goalData.tCalories?.toFloat() ?: 0f,
+                                goalData.sCalories?.toFloat() ?: 0f,
+                                binding.tvPercentage
+                            )
+                            updateCircularProgressBar(
+                                binding.CarbsCircularProgressBar,
+                                goalData.tCarbs?.toFloat() ?: 0f,
+                                goalData.sCarbs?.toFloat() ?: 0f,
+                                binding.tvPercentageCarbs
+                            )
+                            updateCircularProgressBar(
+                                binding.FatsCircularProgressBar,
+                                goalData.tFat?.toFloat() ?: 0f,
+                                goalData.sFat?.toFloat() ?: 0f,
+                                binding.tvPercentageFats
+                            )
+                            updateCircularProgressBar(
+                                binding.ProteinCircularProgressBar,
+                                goalData.tProtein?.toFloat() ?: 0f,
+                                goalData.sProtein?.toFloat() ?: 0f,
+                                binding.tvPercentageProtein
+                            )
                         }
-
-                        updateCircularProgressBar(
-                            binding.calCircularProgressBar,
-                            goalData.tCalories?.toFloat() ?: 0f,
-                            goalData.sCalories?.toFloat() ?: 0f,
-                            binding.tvPercentage
-                        )
-                        updateCircularProgressBar(
-                            binding.CarbsCircularProgressBar,
-                            goalData.tCarbs?.toFloat() ?: 0f,
-                            goalData.sCarbs?.toFloat() ?: 0f,
-                            binding.tvPercentageCarbs
-                        )
-                        updateCircularProgressBar(
-                            binding.FatsCircularProgressBar,
-                            goalData.tFat?.toFloat() ?: 0f,
-                            goalData.sFat?.toFloat() ?: 0f,
-                            binding.tvPercentageFats
-                        )
-                        updateCircularProgressBar(
-                            binding.ProteinCircularProgressBar,
-                            goalData.tProtein?.toFloat() ?: 0f,
-                            goalData.sProtein?.toFloat() ?: 0f,
-                            binding.tvPercentageProtein
-                        )
                     } else {
                         // No goal data found for the user
                         // Handle this case, e.g., display a message or set default values
@@ -127,8 +171,12 @@ class ResultFragment : Fragment() {
                         binding.tvFatsNum.text = "0.0"
                         binding.tvKcal.text = "0.0"
                         updateCircularProgressBar(binding.calCircularProgressBar, 0f, 0f, binding.tvPercentage)
+                        updateCircularProgressBar(binding.CarbsCircularProgressBar, 0f, 0f, binding.tvPercentageCarbs)
+                        updateCircularProgressBar(binding.FatsCircularProgressBar, 0f, 0f, binding.tvPercentageFats)
+                        updateCircularProgressBar(binding.ProteinCircularProgressBar, 0f, 0f, binding.tvPercentageProtein)
                     }
                 }
+
 
                 is UiState.Loading -> {
                     // Show loading indicator
@@ -209,6 +257,7 @@ class ResultFragment : Fragment() {
     private fun updateCurrentDateText(date: Date?) {
         binding.tvCurrentDate.text = dateFormat.format(date ?: Date())
     }
+
     companion object {
         @JvmStatic
         fun newInstance(param1: String) =

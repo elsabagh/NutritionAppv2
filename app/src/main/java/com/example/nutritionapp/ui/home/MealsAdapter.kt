@@ -9,7 +9,8 @@ import java.text.SimpleDateFormat
 
 class MealsAdapter(
     val onItemClicked: (Int, NutritionDataF) -> Unit,
-) : RecyclerView.Adapter<MealsAdapter.MyViewHolder>() {
+    val onDeleteClicked: ((Int, NutritionDataF) -> Unit)? = null,
+    ) : RecyclerView.Adapter<MealsAdapter.MyViewHolder>() {
 
     val sdf = SimpleDateFormat("dd MMM yyyy")
     private var list: MutableList<NutritionDataF> = arrayListOf()
@@ -53,6 +54,10 @@ class MealsAdapter(
 
             binding.itemLayout.setOnClickListener {
                 onItemClicked?.invoke(position, item)
+            }
+
+            binding.delete.setOnClickListener {
+                onDeleteClicked?.invoke(position, item)
             }
         }
 

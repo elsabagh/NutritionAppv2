@@ -8,21 +8,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.nutritionapp.R
-import com.example.nutritionapp.databinding.FragmentHomeBinding
-import com.example.nutritionapp.ui.auth.AuthViewModel
+import com.example.nutritionapp.databinding.FragmentContainerBinding
+import com.example.nutritionapp.viewModel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class ContainerFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentContainerBinding
     private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentContainerBinding.inflate(inflater, container, false)
         return binding.root
     }
 

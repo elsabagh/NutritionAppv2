@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.MealsListingFragment">
 
     <ImageView
@@ -55,6 +55,7 @@
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +78,8 @@
         android:layout_width="50dp"
         android:layout_height="30dp"
         android:layout_marginStart="32dp"
-        android:text="15"
+        android:gravity="center"
+        android:text=""
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/back"
         app:layout_constraintStart_toEndOf="@+id/back"
@@ -85,17 +87,176 @@
 
     </TextView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chose_typeMeal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_current_date">
+
+        <View
+            android:id="@+id/view_All"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/strok_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/view_Breakfast"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_All"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:letterSpacing=".05"
+            android:text="All"
+            android:textSize="13sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/view_All"
+            app:layout_constraintEnd_toEndOf="@+id/view_All"
+            app:layout_constraintStart_toStartOf="@+id/view_All"
+            app:layout_constraintTop_toTopOf="@+id/view_All" />
+
+
+        <View
+            android:id="@+id/view_Breakfast"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/strok_view"
+            app:layout_constraintBottom_toBottomOf="@+id/view_All"
+            app:layout_constraintEnd_toStartOf="@+id/view_Lunch"
+            app:layout_constraintStart_toEndOf="@+id/view_All"
+            app:layout_constraintTop_toTopOf="@+id/view_All" />
+
+        <TextView
+            android:id="@+id/tv_Breakfast"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="8dp"
+            android:gravity="center"
+            android:letterSpacing=".05"
+            android:text="Brakfast"
+            android:textSize="13sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/view_Breakfast"
+            app:layout_constraintEnd_toEndOf="@+id/view_Breakfast"
+            app:layout_constraintStart_toStartOf="@+id/view_Breakfast"
+            app:layout_constraintTop_toTopOf="@+id/view_Breakfast" />
+
+
+        <View
+            android:id="@+id/view_Lunch"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/strok_view"
+            app:layout_constraintBottom_toBottomOf="@+id/view_Breakfast"
+            app:layout_constraintEnd_toStartOf="@+id/view_Dinner"
+            app:layout_constraintStart_toEndOf="@+id/view_Breakfast"
+            app:layout_constraintTop_toTopOf="@+id/view_Breakfast" />
+
+        <TextView
+            android:id="@+id/tv_Lunch"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="8dp"
+            android:gravity="center"
+            android:letterSpacing=".05"
+            android:text="Lunch"
+            android:textSize="13sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/view_Lunch"
+            app:layout_constraintEnd_toEndOf="@+id/view_Lunch"
+            app:layout_constraintStart_toStartOf="@+id/view_Lunch"
+            app:layout_constraintTop_toTopOf="@+id/view_Lunch" />
+
+        <View
+            android:id="@+id/view_Dinner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/strok_view"
+            app:layout_constraintBottom_toBottomOf="@+id/view_Lunch"
+            app:layout_constraintEnd_toStartOf="@+id/view_Snacks"
+            app:layout_constraintStart_toEndOf="@+id/view_Lunch"
+            app:layout_constraintTop_toTopOf="@+id/view_Lunch" />
+
+        <TextView
+            android:id="@+id/tv_Dinner"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:letterSpacing=".05"
+            android:text="Dinner"
+            android:textSize="13sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/view_Dinner"
+            app:layout_constraintEnd_toEndOf="@+id/view_Dinner"
+            app:layout_constraintStart_toStartOf="@+id/view_Dinner"
+            app:layout_constraintTop_toTopOf="@+id/view_Dinner" />
+
+        <View
+            android:id="@+id/view_Snacks"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/strok_view"
+            app:layout_constraintBottom_toBottomOf="@+id/view_Dinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view_Dinner"
+            app:layout_constraintTop_toTopOf="@+id/view_Dinner" />
+
+        <TextView
+            android:id="@+id/tv_Snacks"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:letterSpacing=".05"
+            android:text="Snacks"
+            android:textSize="13sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/view_Snacks"
+            app:layout_constraintEnd_toEndOf="@+id/view_Snacks"
+            app:layout_constraintStart_toStartOf="@+id/view_Snacks"
+            app:layout_constraintTop_toTopOf="@+id/view_Snacks" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/meals_listing"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="44dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"
+        app:layout_constraintTop_toBottomOf="@+id/chose_typeMeal"
         tools:listitem="@layout/item_meal" />
 
 

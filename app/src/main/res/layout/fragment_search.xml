@@ -407,7 +407,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="24dp"
-                android:background="@drawable/btn_login_background"
+                android:background="@drawable/custom_btn"
                 android:text="Add Food"
                 android:textColor="@color/white"
                 android:textSize="30sp"
@@ -445,7 +445,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/btn_login_background">
+                    android:background="@drawable/custom_btn">
 
                     <ImageView
                         android:id="@+id/imageButton"

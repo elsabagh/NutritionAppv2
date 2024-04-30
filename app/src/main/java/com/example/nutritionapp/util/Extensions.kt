@@ -50,12 +50,29 @@ fun List<Pair<View, TextView>>.applyClickBehavior(selectedGoal: (String?) -> Uni
     for ((view, textView) in this) {
         view.setOnClickListener {
             resetViews()
-            view.background = ContextCompat.getDrawable(view.context, R.drawable.selected_stroke_view)
+            view.background =
+                ContextCompat.getDrawable(view.context, R.drawable.selected_stroke_view)
             textView.setTextColor(ContextCompat.getColor(view.context, R.color.blue))
             textView.setTypeface(null, Typeface.BOLD)
             selectedGoal(textView.text.toString()) // Invoke the provided onClick lambda with the text from the clicked TextView
         }
     }
+}
+
+fun View.updateCardSelection(selectedCard: View?, allCards: List<View>) {
+    // Reset background of previously selected card
+//    allCards.forEach { card ->
+//        selectedCard?.setBackgroundResource(R.drawable.strok_view)
+//    }
+    allCards.forEach { card ->
+        card.setBackgroundResource(
+            if (card == this) R.drawable.selected_stroke_view
+            else R.drawable.strok_view
+        )
+    }
+
+//    // Set stroke color for the newly selected card
+//    this.setBackgroundResource(R.drawable.selected_stroke_view)
 }
 
 fun Date.startOfDay(): Date {

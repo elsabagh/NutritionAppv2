@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/containerFragment">
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.nutritionapp.ui.home.HomeFragment"
+        android:id="@+id/containerFragment"
+        android:name="com.example.nutritionapp.ui.home.ContainerFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_container">
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -23,7 +23,7 @@
     <action
         android:id="@+id/action_resultFragment_to_MealsListingFragment"
         app:destination="@id/MealsListingFragment"
-        app:popUpTo="@id/homeFragment"
+        app:popUpTo="@id/containerFragment"
         app:popUpToInclusive="true" />
 
     <fragment

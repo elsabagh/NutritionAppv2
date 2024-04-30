@@ -1,4 +1,4 @@
-package com.example.nutritionapp.ui.auth
+package com.example.nutritionapp.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

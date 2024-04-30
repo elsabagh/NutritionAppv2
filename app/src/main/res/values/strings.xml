@@ -53,4 +53,10 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="result">Result</string>
+    <string name="track_your_daily"><![CDATA[Track your daily activity & stay healthy]]></string>
+    <string name="good_day">Good Day,</string>
+    <string name="my_name">Ahmed</string>
+    <string name="calculate_kcal">calculate Kcal</string>
+    <string name="calculate_note">Calculate the number of calories needed for daily consumption</string>
+    <string name="calculate">calculate</string>
 </resources>

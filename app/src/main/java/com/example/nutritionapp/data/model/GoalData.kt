@@ -10,10 +10,10 @@ data class GoalData(
     var tCarbs: String? = null,
     var tFat: String? = null,
     var tProtein: String? = null,
-    var sCalories: Double? = null,
-    var sCarbs: Double? = null,
-    var sFat: Double? = null,
-    var sProtein: Double? = null,
+    var sCalories: Double? = 0.0,
+    var sCarbs: Double? = 0.0,
+    var sFat: Double? = 0.0,
+    var sProtein: Double? = 0.0,
     @ServerTimestamp
     var date: Date = Date(),
 )

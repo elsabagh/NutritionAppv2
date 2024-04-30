@@ -244,11 +244,13 @@ class AuthRepositoryImp(
                     // If the document exists, update its sCalories field
                     val document = documents.documents[0]
                     val existingGoalData = document.toObject(GoalData::class.java)
-                    existingGoalData?.sCalories = goalData.sCalories // Update sCalories field
-                    existingGoalData?.sCarbs = goalData.sCarbs // Update sCarbs field
-                    existingGoalData?.sFat = goalData.sFat // Update sFat field
-                    existingGoalData?.sProtein = goalData.sProtein // Update sProtein field
-                    existingGoalData?.date = Calendar.getInstance().time // Update the date field
+                    existingGoalData?.apply {
+                        this.sCalories = goalData.sCalories
+                        this.sCarbs = goalData.sCarbs
+                        this.sFat = goalData.sFat
+                        this.sProtein = goalData.sProtein
+                        this.date = Calendar.getInstance().time // Update the date field
+                    }
 
                     // Update the document in Firestore
                     document.reference.set(existingGoalData!!)
@@ -259,18 +261,12 @@ class AuthRepositoryImp(
                             result.invoke(UiState.Failure(exception.localizedMessage))
                         }
                 } else {
-                    // If the document doesn't exist, create a new document
-                    database.collection("Goal").document(goalData.user_id)
-                        .set(goalData)
-                        .addOnSuccessListener {
-                            result.invoke(UiState.Success("New goal data created successfully"))
-                        }
-                        .addOnFailureListener { exception ->
-                            result.invoke(UiState.Failure(exception.localizedMessage))
-                        }
+                    // If the document doesn't exist, log an error indicating that the document is missing
+                    result.invoke(UiState.Failure("Goal document for user ${goalData.user_id} not found"))
                 }
             }
             .addOnFailureListener { exception ->
+                // Handle failures in querying Firestore
                 result.invoke(UiState.Failure(exception.localizedMessage))
             }
     }

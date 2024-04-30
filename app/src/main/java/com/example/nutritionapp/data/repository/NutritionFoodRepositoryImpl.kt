@@ -36,10 +36,18 @@ class NutritionFoodRepositoryImpl(
     override fun getNutritionData(
         userId: User?,
         date: Date?,
+        meal: String?,
         result: (UiState<List<NutritionDataF>>) -> Unit
     ) {
         var query = database.collection(FireStoreTAbles.NutritionData)
             .whereEqualTo(FireStoreDocumentField.USER_ID, userId?.id)
+
+        // Apply meal filter if provided
+        if (!meal.isNullOrEmpty()) {
+            query = query.whereEqualTo("meal", meal)
+        }
+
+        // Apply date filter if provided
         if (date != null) {
             val startOfDay = date.startOfDay()
             val endOfDay = date.endOfDay()
@@ -58,7 +66,6 @@ class NutritionFoodRepositoryImpl(
                 result.invoke(
                     UiState.Success(nutrition)
                 )
-
             }
             .addOnFailureListener {
                 result.invoke(
@@ -66,5 +73,21 @@ class NutritionFoodRepositoryImpl(
                 )
             }
     }
+
+    override fun deleteNutrition(nutritionId: NutritionDataF, result: (UiState<String>) -> Unit) {
+        database.collection(FireStoreTAbles.NutritionData).document(nutritionId.id)
+            .delete()
+            .addOnSuccessListener {
+                result.invoke(
+                    UiState.Success("Nutrition data deleted successfully")
+                )
+            }
+            .addOnFailureListener { exception ->
+                result.invoke(
+                    UiState.Failure(exception.localizedMessage)
+                )
+            }
+    }
+
 
 }

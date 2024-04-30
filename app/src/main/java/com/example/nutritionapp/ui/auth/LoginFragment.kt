@@ -1,10 +1,10 @@
 package com.example.nutritionapp.ui.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.nutritionapp.R
@@ -14,6 +14,7 @@ import com.example.nutritionapp.util.hide
 import com.example.nutritionapp.util.isValidEmail
 import com.example.nutritionapp.util.show
 import com.example.nutritionapp.util.toast
+import com.example.nutritionapp.viewModel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -67,12 +68,17 @@ class LoginFragment : Fragment() {
                 is UiState.Success -> {
                     binding.loginProgress.hide()
                     toast(state.data)
+                    restartApp()
                     findNavController().navigate(R.id.action_loginFragment_to_home_nav)
                 }
             }
         }
     }
-
+    private fun restartApp() {
+        val intent = requireActivity().intent
+        requireActivity().finish()
+        startActivity(intent)
+    }
     private fun validation(): Boolean {
         var isValid = true
 

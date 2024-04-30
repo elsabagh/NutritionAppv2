@@ -14,6 +14,7 @@ import com.example.nutritionapp.util.hide
 import com.example.nutritionapp.util.isValidEmail
 import com.example.nutritionapp.util.show
 import com.example.nutritionapp.util.toast
+import com.example.nutritionapp.viewModel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

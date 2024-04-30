@@ -9,13 +9,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.nutritionapp.R
 import com.example.nutritionapp.data.model.GoalData
+import com.example.nutritionapp.data.model.NutritionDataF
 import com.example.nutritionapp.databinding.FragmentMealListingBinding
-import com.example.nutritionapp.ui.auth.AuthViewModel
+import com.example.nutritionapp.viewModel.AuthViewModel
 import com.example.nutritionapp.util.UiState
 import com.example.nutritionapp.util.hide
 import com.example.nutritionapp.util.show
 import com.example.nutritionapp.util.toast
+import com.example.nutritionapp.util.updateCardSelection
+import com.example.nutritionapp.viewModel.NutritionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -30,15 +34,21 @@ class MealsListingFragment : Fragment() {
     private var param1: String? = null
     private lateinit var binding: FragmentMealListingBinding
     private val authViewModel: AuthViewModel by viewModels()
-    private val viewModel: SearchNutritionViewModel by viewModels()
+    private val viewModel: NutritionViewModel by viewModels()
     private var selectedDate: Date? = null
     private val dateFormat = SimpleDateFormat("MMM d")
     private var backClickCount = 0
+    private var filterByMeal: String? = null
+    private var selectedCard: View? = null
 
+    var deleteItemPos = -1
     private val adapter by lazy {
         MealsAdapter(
             onItemClicked = { pos, item ->
 
+            },
+            onDeleteClicked = { pos, item ->
+                onDeleteClicked(pos, item)
             }
         )
     }
@@ -71,47 +81,31 @@ class MealsListingFragment : Fragment() {
 
         binding.calendarView.visibility = View.GONE
         binding.imgCalendar.setOnClickListener {
-            if (binding.calendarView.visibility == View.VISIBLE) {
-                binding.calendarView.visibility = View.GONE
-            } else {
-                // Set the calendar to the selectedDate (current date)
-                val calendar = Calendar.getInstance()
-                calendar.time = selectedDate ?: Date()
-                binding.calendarView.date = calendar.timeInMillis
-                binding.calendarView.visibility = View.VISIBLE
-            }
+            toggleCalendarVisibility()
         }
+
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            // Create a Date object from the selected date
-            val calendar = Calendar.getInstance()
-            calendar.set(year, month, dayOfMonth)
-            val selectedDate = calendar.time
-
-            // Update the selectedDate and the current date text
-            this.selectedDate = selectedDate
-            updateCurrentDateText(selectedDate)
-
-            authViewModel.getSession {
-
-                // Now, you have the userId, you can use it to retrieve the goal data
-                viewModel.getNutritionData(it, selectedDate)
-            }
+            // Handle date change from the calendar
+            handleDateChange(year, month, dayOfMonth)
         }
 
-        if (selectedDate == null) {
-            val currentDate = Calendar.getInstance().time
-            selectedDate = currentDate
-            updateCurrentDateText(currentDate)
-            authViewModel.getSession {
-                viewModel.getNutritionData(it, currentDate)
-            }
+        // Initialize the screen with the current date's data
+        val mealType = arguments?.getString("mealType")
+        val currentDate = Calendar.getInstance().time
+        selectedDate = currentDate
+        updateCurrentDateText(currentDate)
+        authViewModel.getSession {
+            viewModel.getNutritionData(it, selectedDate, mealType)
         }
 
+
+        changeStyleCard()
         backButton()
         observer()
         prevDay()
         nextDay()
     }
+
 
     private fun observer() {
         viewModel.nutritionData.observe(viewLifecycleOwner) { state ->
@@ -141,16 +135,38 @@ class MealsListingFragment : Fragment() {
                         )
                     }
                 }
+
                 is UiState.Loading -> {
                     binding.progressBar.show()
                 }
+
                 is UiState.Failure -> {
                     binding.progressBar.hide()
                     toast(state.error)
                 }
             }
         }
+
+        viewModel.deleteNutrition.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Loading -> {
+                    binding.progressBar.show()
+                }
+
+                is UiState.Failure -> {
+                    binding.progressBar.hide()
+                    toast(state.error)
+                }
+
+                is UiState.Success -> {
+                    binding.progressBar.hide()
+                    toast(state.data)
+                    adapter.removeItem(deleteItemPos)
+                }
+            }
+        }
     }
+
     private fun nextDay() {
         binding.btnNextDay.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -179,8 +195,88 @@ class MealsListingFragment : Fragment() {
         }
     }
 
+    private fun toggleCalendarVisibility() {
+        binding.calendarView.visibility =
+            if (binding.calendarView.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+    }
+
+    private fun handleDateChange(year: Int, month: Int, dayOfMonth: Int) {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, dayOfMonth)
+        val selectedDate = calendar.time
+        this.selectedDate = selectedDate
+        updateCurrentDateText(selectedDate)
+        authViewModel.getSession {
+            viewModel.getNutritionData(it, selectedDate)
+        }
+    }
+
+    private fun filterByMeal(meal: String) {
+        filterByMeal = meal
+        authViewModel.getSession {
+            viewModel.getNutritionData(it, selectedDate, meal)
+        }
+    }
+
+    private fun cancelMealFilter() {
+        filterByMeal = null
+        authViewModel.getSession {
+            viewModel.getNutritionData(it, selectedDate)
+        }
+    }
+
+    private fun changeStyleCard() {
+        val allCards = listOf(
+            binding.viewBreakfast,
+            binding.viewLunch,
+            binding.viewAll,
+            binding.viewDinner,
+            binding.viewSnacks
+        )
+
+        // Set listeners for filtering by meal
+        val cardClickListener: (String, View) -> Unit = { mealType, view ->
+            filterByMeal(mealType)
+            view.updateCardSelection(selectedCard, allCards)
+            selectedCard = view
+        }
+        binding.viewBreakfast.setOnClickListener {
+            cardClickListener("Breakfast", it)
+        }
+        binding.viewLunch.setOnClickListener {
+            cardClickListener("Lunch", it)
+        }
+        binding.viewDinner.setOnClickListener {
+            cardClickListener("Dinner", it)
+        }
+        binding.viewSnacks.setOnClickListener {
+            cardClickListener("Snacks", it)
+        }
+        binding.viewAll.setOnClickListener {
+            cardClickListener("", it)
+        }
+    }
+
     private fun backButton() {
         binding.back.setOnClickListener {
+            // Reset stroke style for all cards
+            listOf(
+                binding.viewBreakfast,
+                binding.viewLunch,
+                binding.viewAll,
+                binding.viewDinner,
+                binding.viewSnacks
+            ).forEach { card ->
+                card.setBackgroundResource(R.drawable.strok_view) // Reset to gray stroke
+            }
+
+            // Reset selectedCard to null
+            selectedCard = null
+
+            // Handle other back button functionality
+            if (filterByMeal != null) {
+                cancelMealFilter()
+            }
             if (backClickCount == 0) {
                 // Move to current day
                 val currentDate = Calendar.getInstance().time
@@ -192,13 +288,12 @@ class MealsListingFragment : Fragment() {
             } else if (backClickCount == 1) {
                 // Check if the selected date is today's date
                 val today = Calendar.getInstance().time
-                if (!dateFormat.format(selectedDate).equals(dateFormat.format(today), ignoreCase = true)) {
+                if (!dateFormat.format(selectedDate)
+                        .equals(dateFormat.format(today), ignoreCase = true)
+                ) {
                     // If not, move to today's date
                     selectedDate = today
                     updateCurrentDateText(today)
-                    authViewModel.getSession {
-                        viewModel.getNutritionData(it, today)
-                    }
                     backClickCount = 0 // Reset backClickCount for future use
                     return@setOnClickListener
                 }
@@ -212,6 +307,11 @@ class MealsListingFragment : Fragment() {
 
     private fun updateCurrentDateText(date: Date?) {
         binding.tvCurrentDate.text = dateFormat.format(date ?: Date())
+    }
+
+    private fun onDeleteClicked(pos: Int, item: NutritionDataF) {
+        deleteItemPos = pos
+        viewModel.deleteNutrition(item)
     }
 
     companion object {

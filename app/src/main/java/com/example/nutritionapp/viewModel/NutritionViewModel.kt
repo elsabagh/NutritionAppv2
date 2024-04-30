@@ -1,4 +1,4 @@
-package com.example.nutritionapp.ui.home
+package com.example.nutritionapp.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +12,7 @@ import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchNutritionViewModel @Inject constructor(
+class NutritionViewModel @Inject constructor(
     val repository: NutritionFoodRepository
 ) : ViewModel() {
 
@@ -25,6 +25,10 @@ class SearchNutritionViewModel @Inject constructor(
     val nutritionData: LiveData<UiState<List<NutritionDataF>>>
         get() = _nutritionData
 
+    private val _deleteNutrition = MutableLiveData<UiState<String>>()
+    val deleteNutrition: LiveData<UiState<String>>
+        get() = _deleteNutrition
+
     fun addNutrition(nutrition: NutritionDataF) {
         _addNutrition.value = UiState.Loading
         repository.addNutrition(nutrition) {
@@ -33,10 +37,17 @@ class SearchNutritionViewModel @Inject constructor(
     }
 
 
-    fun getNutritionData(user: User?, date: Date? = null) {
+    fun getNutritionData(user: User?, date: Date? = null, meal: String? = null) {
         _nutritionData.value = UiState.Loading
-        repository.getNutritionData(user, date) {
+        repository.getNutritionData(user, date, meal) {
             _nutritionData.value = it
+        }
+    }
+
+    fun deleteNutrition(nutritionId: NutritionDataF) {
+        _deleteNutrition.value = UiState.Loading
+        repository.deleteNutrition(nutritionId) {
+            _deleteNutrition.value = it
         }
     }
 }

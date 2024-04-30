@@ -9,6 +9,10 @@ interface NutritionFoodRepository {
 
     fun addNutrition(nutrition: NutritionDataF, result: (UiState<String>) -> Unit)
 
-    fun getNutritionData(userId: User?, date: Date? = null, result: (UiState<List<NutritionDataF>>) -> Unit)
+    fun getNutritionData(
+        userId: User?, date: Date? = null, meal: String?,
+        result: (UiState<List<NutritionDataF>>) -> Unit
+    )
+    fun deleteNutrition(nutritionId: NutritionDataF, result: (UiState<String>) -> Unit)
 
 }

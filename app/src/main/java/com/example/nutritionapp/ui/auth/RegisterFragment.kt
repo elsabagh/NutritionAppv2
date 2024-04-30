@@ -18,6 +18,7 @@ import com.example.nutritionapp.util.hide
 import com.example.nutritionapp.util.isValidEmail
 import com.example.nutritionapp.util.show
 import com.example.nutritionapp.util.toast
+import com.example.nutritionapp.viewModel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -115,13 +116,17 @@ class RegisterFragment : Fragment() {
                             viewModel.getSession { this.user_id = it?.id ?: "" }
                         }
                     )
-
+                    restartApp()
                     findNavController().navigate(R.id.action_registerFragment_to_home_nav)
                 }
             }
         }
     }
-
+    private fun restartApp() {
+        val intent = requireActivity().intent
+        requireActivity().finish()
+        startActivity(intent)
+    }
     private fun getUserObj(): User {
         return User(
             id = "",
