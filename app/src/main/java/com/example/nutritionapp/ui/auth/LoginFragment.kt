@@ -1,5 +1,6 @@
 package com.example.nutritionapp.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.nutritionapp.MainActivity
 import com.example.nutritionapp.R
 import com.example.nutritionapp.databinding.FragmentLoginBinding
 import com.example.nutritionapp.util.UiState
@@ -20,15 +22,16 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
-    private lateinit var binding: FragmentLoginBinding
+    private val binding: FragmentLoginBinding by lazy {
+        FragmentLoginBinding.inflate(layoutInflater)
+    }
     private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentLoginBinding.inflate(layoutInflater)
+
         return binding.root
     }
 
@@ -74,33 +77,37 @@ class LoginFragment : Fragment() {
             }
         }
     }
+
     private fun restartApp() {
-        val intent = requireActivity().intent
+        val intent = Intent(requireContext(), MainActivity::class.java)
         requireActivity().finish()
         startActivity(intent)
     }
-    private fun validation(): Boolean {
-        var isValid = true
 
-        if (binding.etEmail.text.isNullOrEmpty()) {
-            isValid = false
-            toast(getString(R.string.enter_email))
-        } else {
-            if (!binding.etEmail.text.toString().isValidEmail()) {
-                isValid = false
+    private fun validation(): Boolean {
+        when {
+            binding.etEmail.text.isNullOrEmpty() -> {
+                toast(getString(R.string.enter_email))
+                return false
+            }
+
+            !binding.etEmail.text.toString().isValidEmail() -> {
                 toast(getString(R.string.invalid_email))
+                return false
             }
-        }
-        if (binding.etPass.text.isNullOrEmpty()) {
-            isValid = false
-            toast(getString(R.string.enter_password))
-        } else {
-            if (binding.etPass.text.toString().length < 8) {
-                isValid = false
+
+            binding.etPass.text.isNullOrEmpty() -> {
+                toast(getString(R.string.enter_password))
+                return false
+            }
+
+            binding.etPass.text.toString().length < 8 -> {
                 toast(getString(R.string.invalid_password))
+                return false
             }
+
+            else -> return true
         }
-        return isValid
     }
 
     override fun onStart() {

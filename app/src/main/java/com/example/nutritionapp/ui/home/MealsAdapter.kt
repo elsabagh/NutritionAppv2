@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nutritionapp.data.model.NutritionDataF
-import com.example.nutritionapp.databinding.ItemMealBinding
+import com.example.nutritionapp.databinding.ItemMealsBinding
 import java.text.SimpleDateFormat
 
 class MealsAdapter(
@@ -16,7 +16,7 @@ class MealsAdapter(
     private var list: MutableList<NutritionDataF> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = ItemMealBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemView = ItemMealsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(itemView)
     }
 
@@ -42,14 +42,14 @@ class MealsAdapter(
         return list.size
     }
 
-    inner class MyViewHolder(private val binding: ItemMealBinding) :
+    inner class MyViewHolder(private val binding: ItemMealsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NutritionDataF) {
             binding.foodName.text = item.foodName
             binding.textCalories.text = item.calories
-            binding.textCarb.text = item.carbs
-            binding.textProtein.text = item.protein
-            binding.textFat.text = item.fat
+//            binding.textCarb.text = item.carbs
+//            binding.textProtein.text = item.protein
+//            binding.textFat.text = item.fat
             binding.textDate.text = sdf.format(item.date)
 
             binding.itemLayout.setOnClickListener {

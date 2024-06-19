@@ -342,16 +342,18 @@
                 android:id="@+id/btn_Next"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="200dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/custom_btn"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="Next"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="@+id/view_lose_4"
-                app:layout_constraintStart_toStartOf="@+id/view_lose_4"
-                app:layout_constraintTop_toBottomOf="@+id/view_lose_4" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/view_lose_1"
+                app:layout_constraintStart_toStartOf="@+id/view_lose_1"
+                app:layout_constraintTop_toBottomOf="@+id/view_lose_1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

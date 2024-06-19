@@ -252,12 +252,13 @@
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="44dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:spanCount="2"
         app:layout_constraintTop_toBottomOf="@+id/chose_typeMeal"
-        tools:listitem="@layout/item_meal" />
+        tools:listitem="@layout/item_meals" />
 
 
     <ProgressBar

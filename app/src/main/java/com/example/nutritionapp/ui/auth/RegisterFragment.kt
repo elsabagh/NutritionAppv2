@@ -44,7 +44,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observer()
 
-        binding.toolbarTitle.text = "Create Account"
+        binding.toolbarTitle.text = getString(R.string.create_account)
 
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
@@ -122,11 +122,13 @@ class RegisterFragment : Fragment() {
             }
         }
     }
+
     private fun restartApp() {
         val intent = requireActivity().intent
         requireActivity().finish()
         startActivity(intent)
     }
+
     private fun getUserObj(): User {
         return User(
             id = "",
@@ -136,251 +138,102 @@ class RegisterFragment : Fragment() {
         )
     }
 
-    private fun calculationForMale() {
-        val w = args.weight.toDouble()
-        val h = args.height.toDouble()
-        val a = args.age.toDouble()
-        val BMR = 88.362 + (13.397 * w) + (4.799 * h) - (5.877 * a)
-        var ac = 0.0
-        var ca = 0.0
-        var protien = 0.0
-        var carb = 0.0
-        var fats = 0.0
-        when (args.selectedActivityLevel) {
-            "Not Very Active" -> {
-                val c = BMR * 1.2
-                ac = c
-            }
-
-            "Lightly Active" -> {
-                val c = BMR * 1.3
-                ac = c
-            }
-
-            "Active" -> {
-                val c = BMR * 1.55
-                ac = c
-            }
-
-            "Very Active" -> {
-                val c = BMR * 1.7
-                ac = c
-            }
+    private fun getAdjustedWeight(currentWeight: Double, goalWeight: Double): Double {
+        val weightDifference = goalWeight - currentWeight
+        val adjustmentFactor = when {
+            weightDifference > 0 -> 0.1 // For gaining weight, adjust by 10%
+            weightDifference < 0 -> 0.05 // For losing weight, adjust by 5%
+            else -> 0.0 // No adjustment if the goal is to maintain weight
         }
-
-        when (args.selectedWeaklyGoal) {
-            "Lose 0.25 kg per week" -> {
-                val Calories = ac - 200
-                ca = Calories
-                protien = (w * 2.5)
-                fats = (ca * 0.2) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-
-            "Lose 0.5 kg per week" -> {
-                val Calories = ac - 300
-                ca = Calories
-                protien = (w * 2.5)
-                fats = (ca * 0.2) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-
-            "Lose 0.75 kg per week" -> {
-                val Calories = ac - 400
-                ca = Calories
-                protien = (w * 2.5)
-                fats = (ca * 0.2) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-
-            }
-
-            "Lose 1 kg per week" -> {
-                val Calories = ac - 500
-                ca = Calories
-                protien = (w * 2.5)
-                fats = (ca * 0.2) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-
-            }
-
-            "Maintain current weight" -> {
-                val Calories = ac
-                ca = Calories
-                protien = (w * 2)
-                fats = (ca * 0.25) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-
-            "Gain 0.25 kg per week" -> {
-                val Calories = ac + 200
-                ca = Calories
-                protien = (w * 2)
-                fats = (ca * 0.25) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-
-            "Gain 0.5 kg per week" -> {
-                val Calories = ac + 300
-                ca = Calories
-                protien = (w * 2)
-                fats = (ca * 0.25) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-
-            "Gain 0.75 kg per week" -> {
-                val Calories = ac + 400
-                ca = Calories
-                protien = (w * 2)
-                fats = (ca * 0.3) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-
-            "Gain 1 kg per week" -> {
-                val Calories = ac + 500
-                ca = Calories
-                protien = (w * 2)
-                fats = (ca * 0.3) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-        }
-        calories = ca.toString()
-        protein = protien.toString()
-        carbs = carb.toString()
-        fat = fats.toString()
+        return currentWeight + (weightDifference * adjustmentFactor)
     }
 
+
+    private fun calculationForMale() {
+        val currentWeight = args.weight.toDouble()
+        val goalWeight = args.goalWight.toDouble()
+        val adjustedWeight = getAdjustedWeight(currentWeight, goalWeight)
+
+        val h = args.height.toDouble()
+        val a = args.age.toDouble()
+        val BMR = 88.362 + (13.397 * adjustedWeight) + (4.799 * h) - (5.677 * a)
+        val ac = when (args.selectedActivityLevel) {
+            "Not Very Active" -> BMR * 1.2
+            "Lightly Active" -> BMR * 1.3
+            "Active" -> BMR * 1.55
+            "Very Active" -> BMR * 1.7
+            else -> BMR
+        }
+
+        val ca = when (args.selectedWeaklyGoal) {
+            "Lose 0.25 kg per week" -> ac - 200
+            "Lose 0.5 kg per week" -> ac - 300
+            "Lose 0.75 kg per week" -> ac - 400
+            "Lose 1 kg per week" -> ac - 500
+            "Maintain current weight" -> ac
+            "Gain 0.25 kg per week" -> ac + 200
+            "Gain 0.5 kg per week" -> ac + 300
+            "Gain 0.75 kg per week" -> ac + 400
+            "Gain 1 kg per week" -> ac + 500
+            else -> ac
+        }
+
+        val protein = adjustedWeight * if (args.selectedWeaklyGoal.startsWith("Lose")) 2.5 else 2.0
+        val fatFactor = if (args.selectedWeaklyGoal.contains("Gain")) 0.25 else 0.2
+        val fats = (ca * fatFactor) / 9
+        val k = (protein * 4) + (fats * 9)
+        val carbs = (ca - k) / 4
+
+        calories = ca.toString()
+        this.protein = protein.toString()
+        this.carbs = carbs.toString()
+        this.fat = fats.toString()
+    }
 
     private fun calculationForFemale() {
-        val w = args.weight.toDouble()
+        val currentWeight = args.weight.toDouble()
+        val goalWeight = args.goalWight.toDouble()
+        val adjustedWeight = getAdjustedWeight(currentWeight, goalWeight)
+
         val h = args.height.toDouble()
         val a = args.age.toDouble()
-        val BMR = 447.593 + (9.247 * w) + (3.098 * h) - (4.330 * a)
-        var ac = 0.0
-        var ca = 0.0
-        var protien = 0.0
-        var carb = 0.0
-        var fats = 0.0
-        when (args.selectedActivityLevel) {
-            "Not Very Active" -> {
-                val c = BMR * 1.2
-                ac = c
-            }
-
-            "Lightly Active" -> {
-                val c = BMR * 1.3
-                ac = c
-            }
-
-            "Active" -> {
-                val c = BMR * 1.55
-                ac = c
-            }
-
-            "Very Active" -> {
-                val c = BMR * 1.7
-                ac = c
-            }
+        val BMR = 447.593 + (9.247 * adjustedWeight) + (3.098 * h) - (4.330 * a)
+        val ac = when (args.selectedActivityLevel) {
+            "Not Very Active" -> BMR * 1.2
+            "Lightly Active" -> BMR * 1.3
+            "Active" -> BMR * 1.55
+            "Very Active" -> BMR * 1.7
+            else -> BMR
         }
 
-        when (args.selectedWeaklyGoal) {
-            "Lose 0.25 kg per week" -> {
-                val Calories = ac - 200
-                ca = Calories
-                protien = (w * 2)
-                fats = (ca * 0.25) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-
-            "Lose 0.5 kg per week" -> {
-                val Calories = ac - 300
-                ca = Calories
-                protien = (w * 2)
-                fats = (ca * 0.25) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-
-            "Lose 0.75 kg per week" -> {
-                val Calories = ac - 500
-                ca = Calories
-                protien = (w * 2)
-                fats = (ca * 0.25) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-
-            }
-
-            "Lose 1 kg per week" -> {
-                val Calories = ac - 500
-                ca = Calories
-                protien = (w * 2)
-                fats = (ca * 0.25) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-
-            }
-
-            "Maintain current weight" -> {
-                val Calories = ac
-                ca = Calories
-                protien = (w * 2)
-                fats = (ca * 0.3) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-
-            "Gain 0.25 kg per week" -> {
-                val Calories = ac + 200
-                ca = Calories
-                protien = (w * 1.5)
-                fats = (ca * 0.3) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-
-            "Gain 0.5 kg per week" -> {
-                val Calories = ac + 300
-                ca = Calories
-                protien = (w * 1.5)
-                fats = (ca * 0.3) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-
-            "Gain 0.75 kg per week" -> {
-                val Calories = ac + 400
-                ca = Calories
-                protien = (w * 1.5)
-                fats = (ca * 0.35) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
-
-            "Gain 1 kg per week" -> {
-                val Calories = ac + 500
-                ca = Calories
-                protien = (w * 1.5)
-                fats = (ca * 0.35) / 9
-                val k = (protien * 4) + (fats * 9)
-                carb = (ca - (k)) / 4
-            }
+        val ca = when (args.selectedWeaklyGoal) {
+            "Lose 0.25 kg per week" -> ac - 200
+            "Lose 0.5 kg per week" -> ac - 300
+            "Lose 0.75 kg per week" -> ac - 400
+            "Lose 1 kg per week" -> ac - 500
+            "Maintain current weight" -> ac
+            "Gain 0.25 kg per week" -> ac + 200
+            "Gain 0.5 kg per week" -> ac + 300
+            "Gain 0.75 kg per week" -> ac + 400
+            "Gain 1 kg per week" -> ac + 500
+            else -> ac
         }
+
+        val protein = adjustedWeight * if (args.selectedWeaklyGoal.startsWith("Lose")) 2.0 else 1.5
+        val fatFactor = when (args.selectedWeaklyGoal) {
+            "Gain 0.75 kg per week", "Gain 1 kg per week" -> 0.35
+            "Maintain current weight", "Gain 0.25 kg per week", "Gain 0.5 kg per week" -> 0.3
+            else -> 0.25
+        }
+        val fats = (ca * fatFactor) / 9
+        val k = (protein * 4) + (fats * 9)
+        val carbs = (ca - k) / 4
+
         calories = ca.toString()
-        protein = protien.toString()
-        carbs = carb.toString()
-        fat = fats.toString()
+        this.protein = protein.toString()
+        this.carbs = carbs.toString()
+        this.fat = fats.toString()
     }
-
 
     private fun validation(): Boolean {
         var isValid = true

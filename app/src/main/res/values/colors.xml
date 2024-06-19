@@ -4,12 +4,15 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#0DB7DC</color>
     <color name="gray">#828282</color>
+    <color name="gray2">#9A9A9A</color>
     <color name="green">#19E069</color>
     <color name="shade_of_green">#68C87C</color>
     <color name="skyBlue">#41B9E0</color>
     <color name="orange">#FF902B</color>
     <color name="white_gray">#2AD6D6D6</color>
     <color name="purple">#6D5BDD</color>
+    <color name="blued">#990EA5E9</color>
+
 
 
 </resources>

@@ -13,9 +13,68 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#F9F8F8">
 
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardView"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="12dp"-->
+<!--                android:layout_marginTop="32dp"-->
+<!--                android:layout_marginEnd="12dp"-->
+<!--                app:cardCornerRadius="24dp"-->
+<!--                app:cardElevation="4dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="12dp">-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/search_value"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:hint="القيمة"-->
+<!--                        android:inputType="numberDecimal"-->
+<!--                        android:textColorHint="#C9C9C9"-->
+<!--                        android:textSize="16sp" />-->
+
+<!--                    <Spinner-->
+<!--                        android:id="@+id/search_unit"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:entries="@array/units_array"-->
+<!--                        android:layout_marginStart="8dp"-->
+<!--                        android:layout_marginEnd="8dp"/>-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/search_name"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="2"-->
+<!--                        android:hint="اسم الطعام"-->
+<!--                        android:textColorHint="#C9C9C9"-->
+<!--                        android:textSize="16sp" />-->
+
+<!--                </LinearLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--            <Button-->
+<!--                android:id="@+id/searchbut"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:text="بحث"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/cardView" />-->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
@@ -46,376 +105,394 @@
             </androidx.cardview.widget.CardView>
 
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/Card_Calories"
-                android:layout_width="250dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/data_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/searchbut">
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Card_name"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/custom">
+
+                        <TextView
+                            android:id="@+id/foodname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Meal"
+                            android:textColor="@color/black"
+                            android:textSize="24sp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/itemname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="3dp"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/foodname" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/meal_Line_chart"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_marginHorizontal="56dp"
+                    android:layout_marginTop="32dp"
+                    android:visibility="invisible"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@+id/Card_name"
+                    app:layout_constraintStart_toStartOf="@+id/Card_name"
+                    app:layout_constraintTop_toBottomOf="@+id/Card_name"
+                    tools:ignore="MissingClass" />
+
+                <!-- Calories -->
+
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/custom">
-
-                    <TextView
-                        android:id="@+id/foodname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Meal"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/itemname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="3dp"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="18dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/foodname" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/meal_Line_chart"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                android:layout_marginHorizontal="56dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/btn_dinner"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/CaloriesCardView"
-                app:layout_constraintStart_toEndOf="@+id/ProteinCardView"
-                app:layout_constraintTop_toBottomOf="@+id/Card_Calories"
-                tools:ignore="MissingClass" />
-
-            <!-- Calories -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/CaloriesCardView"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/Card_Calories">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/Caloriesname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/arialln"
-                        android:gravity="center"
-                        android:letterSpacing=".1"
-                        android:text="Calories"
-                        android:textColor="#6D5BDD"
-                        android:textSize="18sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/meal_Line_chart"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_Line_chart"
+                    app:layout_constraintStart_toStartOf="@+id/meal_Line_chart"
+                    app:layout_constraintTop_toTopOf="@+id/meal_Line_chart">
 
                     <TextView
                         android:id="@+id/calories"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/green"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/ttvCal"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginBottom="6dp"
-                        android:gravity="center"
-                        android:maxLength="5"
-                        android:textColor="#6D5BDD"
+                        android:text="cal"
+                        android:textAlignment="center"
+                        android:textColor="@color/gray"
                         android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/Caloriesname" />
+                        app:layout_constraintBottom_toBottomOf="@+id/calories"
+                        app:layout_constraintStart_toEndOf="@+id/calories" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
 
-            <!-- Carbohydrates -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/CarbCardView"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/ProteinCardView"
-                app:layout_constraintStart_toStartOf="@+id/ProteinCardView"
-                app:layout_constraintTop_toBottomOf="@+id/ProteinCardView">
+
+                <!-- Carbohydrates -->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/Carbname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/arialln"
-                        android:letterSpacing=".1"
-                        android:text="Carb"
-                        android:textColor="#41B9E0"
-                        android:textSize="18sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_Carbs"
+                    app:layout_constraintEnd_toEndOf="@+id/view_Carbs"
+                    app:layout_constraintStart_toStartOf="@+id/view_Carbs"
+                    app:layout_constraintTop_toTopOf="@+id/view_Carbs">
 
                     <TextView
                         android:id="@+id/carb"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginBottom="6dp"
-                        android:gravity="center"
-                        android:maxLength="5"
-                        android:textColor="#41B9E0"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/Carbname" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-
-            <!-- Protien -->
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/ProteinCardView"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/CaloriesCardView">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:backgroundTint="#2979FF">
-
-                    <TextView
-                        android:id="@+id/ProName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:letterSpacing=".1"
-                        android:text="Protein"
-                        android:textColor="#FF902B"
-                        android:textSize="18sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        android:maxLength="5"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/holo_blue_light"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/ttvcarb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="g"
+                        android:textAlignment="center"
+                        android:textColor="@color/gray"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/carb"
+                        app:layout_constraintStart_toEndOf="@+id/carb" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/view_Carbs"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="46dp"
+                    android:background="@drawable/circle_element"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_Line_chart"
+                    app:layout_constraintStart_toStartOf="@+id/meal_Line_chart"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_Line_chart" />
+
+
+                <TextView
+                    android:id="@+id/tvCarbs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Carbs"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_blue_light"
+
+                    app:layout_constraintEnd_toEndOf="@+id/view_Carbs"
+                    app:layout_constraintStart_toStartOf="@+id/view_Carbs"
+                    app:layout_constraintTop_toBottomOf="@+id/view_Carbs" />
+
+
+                <!--Protein-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_Protein"
+                    app:layout_constraintEnd_toEndOf="@+id/view_Protein"
+                    app:layout_constraintStart_toStartOf="@+id/view_Protein"
+                    app:layout_constraintTop_toTopOf="@+id/view_Protein">
 
                     <TextView
                         android:id="@+id/Protein"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginBottom="6dp"
-                        android:gravity="center"
-                        android:maxLength="5"
-                        android:textColor="#FF902B"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ProName" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-
-            <!-- Fats -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/FatsCardView"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/CaloriesCardView"
-                app:layout_constraintStart_toStartOf="@+id/CaloriesCardView"
-                app:layout_constraintTop_toBottomOf="@+id/CaloriesCardView">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/FatsName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Fats"
-                        android:textColor="#DD1ECA"
-                        android:textSize="18sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        android:maxLength="6"
+                        android:textAlignment="center"
+                        android:textColor="#FF902B"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/fats"
-                        android:layout_width="0dp"
+                        android:id="@+id/ttvProtein"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginBottom="6dp"
-                        android:gravity="center"
-                        android:maxLength="5"
-                        android:textColor="#DD1ECA"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/FatsName" />
+                        android:text="g"
+                        android:textAlignment="center"
+                        android:textColor="@color/gray"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/Protein"
+                        app:layout_constraintStart_toEndOf="@+id/Protein" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btn_breakfast"
-                android:layout_width="80dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="24dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="3dp"
-                app:backgroundTint="@color/button_color_selector"
-                app:layout_constraintEnd_toStartOf="@+id/btn_launch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CarbCardView">
+
+                <View
+                    android:id="@+id/view_Protein"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="-32dp"
+                    android:background="@drawable/circle_element_portien"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_Line_chart" />
+
 
                 <TextView
-                    android:id="@+id/tv_breakfast"
+                    android:id="@+id/tvProtein"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center"
-                    android:text="breakfast"
-                    android:textSize="13sp" />
-            </androidx.cardview.widget.CardView>
+                    android:text="Protein"
+                    android:textAlignment="center"
+                    android:textColor="#FF902B"
+                    app:layout_constraintEnd_toEndOf="@+id/view_Protein"
+                    app:layout_constraintStart_toStartOf="@+id/view_Protein"
+                    app:layout_constraintTop_toBottomOf="@+id/view_Protein" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btn_launch"
-                android:layout_width="80dp"
-                android:layout_height="28dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="3dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_breakfast"
-                app:layout_constraintEnd_toStartOf="@+id/btn_dinner"
-                app:layout_constraintStart_toEndOf="@+id/btn_breakfast"
-                app:layout_constraintTop_toTopOf="@+id/btn_breakfast">
+
+                <!-- Fats -->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_Fats"
+                    app:layout_constraintEnd_toEndOf="@+id/view_Fats"
+                    app:layout_constraintStart_toStartOf="@+id/view_Fats"
+                    app:layout_constraintTop_toTopOf="@+id/view_Fats">
+
+                    <TextView
+                        android:id="@+id/fats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLength="6"
+                        android:textAlignment="center"
+                        android:textColor="#6D5BDD"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/ttvFats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="g"
+                        android:textAlignment="center"
+                        android:textColor="@color/gray"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fats"
+                        app:layout_constraintStart_toEndOf="@+id/fats" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/view_Fats"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="-32dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/circle_element_fats"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_Line_chart" />
+
 
                 <TextView
-                    android:id="@+id/tv_launch"
+                    android:id="@+id/tvFats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center"
-                    android:text="launch"
-                    android:textSize="13sp" />
-            </androidx.cardview.widget.CardView>
+                    android:text="Fats"
+                    android:textAlignment="center"
+                    android:textColor="#6D5BDD"
+                    app:layout_constraintEnd_toEndOf="@+id/view_Fats"
+                    app:layout_constraintStart_toStartOf="@+id/view_Fats"
+                    app:layout_constraintTop_toBottomOf="@+id/view_Fats" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btn_dinner"
-                android:layout_width="80dp"
-                android:layout_height="28dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="3dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_launch"
-                app:layout_constraintEnd_toStartOf="@+id/btn_snack"
-                app:layout_constraintStart_toEndOf="@+id/btn_launch"
-                app:layout_constraintTop_toTopOf="@+id/btn_launch">
 
-                <TextView
-                    android:id="@+id/tv_dinner"
-                    android:layout_width="wrap_content"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_breakfast"
+                    android:layout_width="80dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="24dp"
+                    app:backgroundTint="@color/button_color_selector"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="3dp"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_launch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCarbs">
+
+                    <TextView
+                        android:id="@+id/tv_breakfast"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:text="breakfast"
+                        android:textSize="13sp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_launch"
+                    android:layout_width="80dp"
+                    android:layout_height="28dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="3dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_breakfast"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_dinner"
+                    app:layout_constraintStart_toEndOf="@+id/btn_breakfast"
+                    app:layout_constraintTop_toTopOf="@+id/btn_breakfast">
+
+                    <TextView
+                        android:id="@+id/tv_launch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:text="launch"
+                        android:textSize="13sp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_dinner"
+                    android:layout_width="80dp"
+                    android:layout_height="28dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="3dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_launch"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_snack"
+                    app:layout_constraintStart_toEndOf="@+id/btn_launch"
+                    app:layout_constraintTop_toTopOf="@+id/btn_launch">
+
+                    <TextView
+                        android:id="@+id/tv_dinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:text="dinner"
+                        android:textSize="13sp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_snack"
+                    android:layout_width="80dp"
+                    android:layout_height="28dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="3dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_dinner"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btn_dinner"
+                    app:layout_constraintTop_toTopOf="@+id/btn_dinner">
+
+                    <TextView
+                        android:id="@+id/tv_snack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:text="snacks"
+                        android:textSize="13sp" />
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/addMeal"
+                    android:layout_width="350dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center"
-                    android:text="dinner"
-                    android:textSize="13sp" />
-            </androidx.cardview.widget.CardView>
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/custom_btn"
+                    android:text="Add Food"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.491"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_breakfast" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btn_snack"
-                android:layout_width="80dp"
-                android:layout_height="28dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="3dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_dinner"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_dinner"
-                app:layout_constraintTop_toTopOf="@+id/btn_dinner">
-
-                <TextView
-                    android:id="@+id/tv_snack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center"
-                    android:text="snacks"
-                    android:textSize="13sp" />
-            </androidx.cardview.widget.CardView>
-
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/addMeal"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/custom_btn"
-                android:text="Add Food"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.491"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_breakfast" />
 
             <ProgressBar
                 android:id="@+id/search_progress"

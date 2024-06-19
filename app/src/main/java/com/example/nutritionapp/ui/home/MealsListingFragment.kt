@@ -8,17 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.nutritionapp.R
 import com.example.nutritionapp.data.model.GoalData
 import com.example.nutritionapp.data.model.NutritionDataF
 import com.example.nutritionapp.databinding.FragmentMealListingBinding
-import com.example.nutritionapp.viewModel.AuthViewModel
 import com.example.nutritionapp.util.UiState
 import com.example.nutritionapp.util.hide
 import com.example.nutritionapp.util.show
 import com.example.nutritionapp.util.toast
 import com.example.nutritionapp.util.updateCardSelection
+import com.example.nutritionapp.viewModel.AuthViewModel
 import com.example.nutritionapp.viewModel.NutritionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -76,8 +76,10 @@ class MealsListingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.mealsListing.layoutManager = LinearLayoutManager(requireContext())
+        // Set GridLayoutManager with 2 columns
+        binding.mealsListing.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.mealsListing.adapter = adapter
+
 
         binding.calendarView.visibility = View.GONE
         binding.imgCalendar.setOnClickListener {

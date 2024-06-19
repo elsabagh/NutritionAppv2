@@ -59,4 +59,27 @@
     <string name="calculate_kcal">calculate Kcal</string>
     <string name="calculate_note">Calculate the number of calories needed for daily consumption</string>
     <string name="calculate">calculate</string>
+    <string name="lose_0_25_kg_per_week">Lose 0.25 kg per week</string>
+    <string name="lose_0_5_kg_per_week">Lose 0.5 kg per week</string>
+    <string name="lose_0_57_kg_per_week">Lose 0.57 kg per week</string>
+    <string name="lose_1_kg_per_week">Lose 1 kg per week</string>
+    <string name="maintain_current_weight">Maintain current weight</string>
+    <string name="gain_0_25_kg_per_week">Gain 0.25 kg per week</string>
+    <string name="gain_0_5_kg_per_week">Gain 0.5 kg per week</string>
+    <string name="gain_0_57_kg_per_week">Gain 0.57 kg per week</string>
+    <string name="gain_1_kg_per_week">Gain 1 kg per week</string>
+    <string name="create_account">Create Account</string>
+    <string name="grams_format">%1$.1f g</string>
+    <string name="calories_format">%1$.1f cal</string>
+    <string name="calories">Calories</string>
+    <string name="cal">cal</string>
+
+    <string-array name="units_array">
+        <item>g</item>
+        <item>kg</item>
+        <item>ml</item>
+        <item>L</item>
+    </string-array>
+
+
 </resources>

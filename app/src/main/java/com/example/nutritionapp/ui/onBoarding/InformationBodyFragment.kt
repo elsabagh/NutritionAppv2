@@ -106,24 +106,26 @@ class InformationBodyFragment : Fragment() {
         // Set weakly goals based on selected goal
         when (selectedGoal) {
             "Lose weight" -> {
-                binding.tvLose1.text = "Lose 0.25 kg per week"
-                binding.tvLose2.text = "Lose 0.5 kg per week"
-                binding.tvLose3.text = "Lose 0.57 kg per week"
-                binding.tvLose4.text = "Lose 1 kg per week"
+                binding.tvLose1.text = getString(R.string.lose_0_25_kg_per_week)
+                binding.tvLose2.text = getString(R.string.lose_0_5_kg_per_week)
+                binding.tvLose3.text = getString(R.string.lose_0_57_kg_per_week)
+                binding.tvLose4.text = getString(R.string.lose_1_kg_per_week)
             }
             // Add similar cases for other goals
             "Maintain weight" -> {
-                binding.tvLose1.text = "Maintain current weight"
-                binding.tvLose2.text = "Maintain current weight"
-                binding.tvLose3.text = "Maintain current weight"
-                binding.tvLose4.text = "Maintain current weight"
+                binding.tvLose1.text = getString(R.string.maintain_current_weight)
+                // Hide the other text views
+                binding.viewLose2.visibility = View.GONE
+                binding.viewLose3.visibility = View.GONE
+                binding.viewLose4.visibility = View.GONE
             }
 
             "Gain weight" -> {
-                binding.tvLose1.text = "Gain 0.25 kg per week"
-                binding.tvLose2.text = "Gain 0.5 kg per week"
-                binding.tvLose3.text = "Gain 0.57 kg per week"
-                binding.tvLose4.text = "Gain 1 kg per week"
+                binding.tvLose1.text = getString(R.string.gain_0_25_kg_per_week)
+                binding.tvLose2.text = getString(R.string.gain_0_5_kg_per_week)
+                binding.tvLose3.text = getString(R.string.gain_0_57_kg_per_week)
+                binding.tvLose4.text = getString(R.string.gain_1_kg_per_week)
+
             }
         }
     }

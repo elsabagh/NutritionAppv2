@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="71.5cal"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="130dp"/>
+
+    <View
+        android:id="@+id/view_Protein"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="44dp"
+        android:background="@drawable/circle_element"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pieChart" />
+
+    <TextView
+        android:id="@+id/etProtein"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6.3g"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_orange_dark"
+        app:layout_constraintBottom_toBottomOf="@+id/view_Fats"
+        app:layout_constraintEnd_toEndOf="@+id/view_Fats"
+        app:layout_constraintStart_toStartOf="@+id/view_Fats"
+        app:layout_constraintTop_toTopOf="@+id/view_Fats" />
+
+    <View
+        android:id="@+id/view_Fats"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="116dp"
+        android:background="@drawable/circle_element"
+        app:layout_constraintEnd_toEndOf="@+id/pieChart"
+        app:layout_constraintStart_toStartOf="@+id/pieChart"
+        app:layout_constraintTop_toBottomOf="@+id/pieChart" />
+
+    <TextView
+        android:id="@+id/etFats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4.3g"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        app:layout_constraintBottom_toBottomOf="@+id/view_Protein"
+        app:layout_constraintEnd_toEndOf="@+id/view_Protein"
+        app:layout_constraintStart_toStartOf="@+id/view_Protein"
+        app:layout_constraintTop_toTopOf="@+id/view_Protein" />
+
+    <View
+        android:id="@+id/view_Carbs"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/circle_element"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pieChart" />
+
+
+    <TextView
+        android:id="@+id/tvCarbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Carbs"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_light"
+
+        app:layout_constraintEnd_toEndOf="@+id/view_Carbs"
+        app:layout_constraintStart_toStartOf="@+id/view_Carbs"
+        app:layout_constraintTop_toBottomOf="@+id/view_Carbs" />
+
+    <TextView
+        android:id="@+id/etCarbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.3g"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_light"
+
+        app:layout_constraintBottom_toBottomOf="@+id/view_Carbs"
+        app:layout_constraintEnd_toEndOf="@+id/view_Carbs"
+        app:layout_constraintStart_toStartOf="@+id/view_Carbs"
+        app:layout_constraintTop_toTopOf="@+id/view_Carbs" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
