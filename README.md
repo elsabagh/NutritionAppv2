@@ -21,7 +21,7 @@ Store and display user data such as food data and daily consumption.
 - **Kotlin:** Language for Android development.
 - **Xml:** For building responsive, modern UIs.
 - **Edamam API:** for get Nutritional data for food.
-- *Firbase:** for Store and display user data.
+- **Firbase:** for Store and display user data.
 - **Gradle:** With multi-module and convention plugin configurations.
 
 ## Screenshots
