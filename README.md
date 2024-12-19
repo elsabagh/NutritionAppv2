@@ -26,10 +26,14 @@ Store and display user data such as food data and daily consumption.
 
 ## Screenshots
 <p align="center">
-        <img src="https://github.com/elsabagh/Notes-App/blob/master/ScreenAddNote.png" style="max-height:70vh;object-fit:contain;" width="25%">
-        <img src="https://github.com/elsabagh/Notes-App/blob/master/ScreenNoteList.png" style="max-height:70vh;object-fit:contain;" width="25%">
-   </p>
-<p align="center">
-         <img src="https://github.com/elsabagh/Notes-App/blob/master/ScreenAddNoteDark.png" style="max-height:70vh;object-fit:contain;" width="25%">
-         <img src="https://github.com/elsabagh/Notes-App/blob/master/ScreenNoteListDarkMode.png" style="max-height:70vh;object-fit:contain;" width="25%">
+        <img src="Nutrition App Screen/start page.png" style="max-height:70vh;object-fit:contain;" width="25%">
+        <img src="Nutrition App Screen/login page.png" style="max-height:70vh;object-fit:contain;" width="25%">
+        <img src="Nutrition App Screen/select goal page.png" width="25%">
+        <img src="Nutrition App Screen/information page.png" width="25%">
+        <img src="Nutrition App Screen/create account page.png" width="25%">
+        <img src="Nutrition App Screen/Home page.png" width="25%">
+        <img src="Nutrition App Screen/Nutritional data page.png" width="25%">
+        <img src="Nutrition App Screen/daily consumption page.png" width="25%">
+        <img src="Nutrition App Screen/list meals page.png" width="25%">
+       <img src="Nutrition App Screen/profile page.png" width="25%">
    </p>
