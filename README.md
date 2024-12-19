@@ -1,9 +1,11 @@
-##  **Notes App** ##
-- A Notes-App allows users to write and save notes and add an image to the note online as per your choice by searching for the image that is useful to you
+##  **Nutrition App** ##
+- A nutrition application analyzes food to calculate calories, fat, protein, and carbohydrates. Users can add food items to a list to review anytime and track their daily calorie burn
 ## Overview
--  allows users to write and save notes
-- image to the note online as per your choice by searching for the image that is useful to you.
-- Sort notes by time added or alphabetically
+- allows users analyzes food to calculate calories, fat, protein,
+ and carbohydrates.
+- Users can add food items to a list to review anytime and track their daily
+ calorie burn.
+- Store and display user data such as food data and daily consumption.
 
   ## Features
 - **Project Planning & Clean Architecture:**
@@ -11,15 +13,15 @@ Thoughtful planning and the fundamentals of software architecture for a scalable
 - **Gradle & Multi-Module Architecture:**
 Utilizes advanced Gradle configurations, including convention plugins and version catalogs.
 Implements a multi-module architecture to improve build times and code separation.
-- **Jetpack Compose UI:**
-Modern UI implementation using Jetpack Compose, tailored for industry-scale projects.
+- **Firbase:**
+Store and display user data such as food data and daily consumption.
 
 ## Tech Stack
 
 - **Kotlin:** Language for Android development.
-- **Jetpack Compose:** For building responsive, modern UIs.
-- **pixabay API:** for get images to add to notes.
-- **unit testing:** for test the functionality of the application.
+- **Xml:** For building responsive, modern UIs.
+- **Edamam API:** for get Nutritional data for food.
+- *Firbase:** for Store and display user data.
 - **Gradle:** With multi-module and convention plugin configurations.
 
 ## Screenshots
